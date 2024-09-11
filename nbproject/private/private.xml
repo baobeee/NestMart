@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/scheduleDetails.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/salary.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/DayOfWeek.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/DayOfWeekDAO.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/controllers/AccountsController.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/account.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/accountCreate.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/WeekScheduleDAO.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/accountUpdate.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/WeekDetailsDAOImpl.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/index.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/login.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/WeekDetails.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/controllers/ScheduleController.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/scheduleDetailsUpdate.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/Accounts.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/controllers/SignUpController.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/SalaryDAO.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/WeekDetailsDAO.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/Salary.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/assignShift.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/salaryDetails.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/SalaryDAOImpl.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/WeekScheduleDAOImpl.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/controllers/SalariesController.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/admin/schedule.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/DayOfWeekDAOImpl.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/forgotPassword.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/Shift.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/resetPassword.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/web/jsp/signup.jsp</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/controllers/AdminController.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/AccountsDAOImpl.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/ShiftDAOImpl.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/AccountsDAO.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/ShiftDAO.java</file>
+            <file>file:/D:/a22044/Final%20Project/nestmart/nestmartFinal/src/java/com/models/WeekSchedule.java</file>
+        </group>
+    </open-files>
+</project-private>
