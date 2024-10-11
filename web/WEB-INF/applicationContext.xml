@@ -23,42 +23,65 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-    
+    <bean id="categoriesDAO" class="com.models.CategoriesDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="discountDAO" class="com.models.DiscountDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="offersDAO" class="com.models.OffersDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="brandsDAO" class="com.models.BrandsDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="productsDAO" class="com.models.ProductsDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="categoryDetailsDAO" class="com.models.CategoryDetailsDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="inventoryDAO" class="com.models.InventoryDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="notificationsDAO" class="com.models.NotificationsDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="ordersDAO" class="com.models.OrdersDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="feedbackDAO" class="com.models.FeedbackDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="employeeResponseDAO" class="com.models.EmployeeResponseDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="returnrequestresponseDAO" class="com.models.ReturnRequestResponseDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="supportDAO" class="com.models.SupportDAOImpl">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+    <bean id="discountClientDAO" class="com.models.DiscountClientDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="productsClientDAO" class="com.models.ProductsClientDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="ordersDTODAO" class="com.models.OrdersDTODAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="orderDetailsDTODAO" class="com.models.OrderDetailsDTODAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="orderDetailsDAO" class="com.models.OrderDetailsDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
     <bean id="accountsDAO" class="com.models.AccountsDAOImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
     </bean>
     
-    <bean id="categoriesDAO" class="com.models.CategoriesDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>
-    
-    <bean id="brandsDAO" class="com.models.BrandsDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>
-    
-    <bean id="productsDAO" class="com.models.ProductsDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>
-    
-    <bean id="categorydetailsDAO" class="com.models.CategoryDetailsDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>
-    
-    <bean id="discountDAO" class="com.models.DiscountDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>
-    
-    <bean id="offersDAO" class="com.models.OffersDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate" />
-    </bean>
-          
-    <bean id="inventoryDAO" class="com.models.InventoryDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-    </bean>
-          
-    <bean id="notificationsDAO" class="com.models.NotificationsDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-    </bean>
     
     <bean id="salaryDAO" class="com.models.SalaryDAOImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>

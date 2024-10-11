@@ -25,7 +25,7 @@
 
         <title>NestMart - Categories</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link href="../assets/admin/css/app.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -149,93 +149,78 @@
                     Pages
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item ">
-                    <a class="sidebar-link" href="accounts-management.html">
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="account.htm" >
                         <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                     </a>
                 </li>
 
+
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-in.html">
+                    <a class="sidebar-link" href="products.htm">
                         <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-up.html">
+                    <a class="sidebar-link" href="brand.htm">
                         <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-blank.html">
+                    <a class="sidebar-link" href="categories.htm">
                         <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-buttons.html">
+                    <a class="sidebar-link" href="categoryDetail.htm">
                         <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="discount.htm">
                         <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
+                    <a class="sidebar-link" href="offers.htm">
                         <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-typography.html">
+                    <a class="sidebar-link" href="schedule.htm">
                         <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                    </a>
-                </li>
+                
 
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="icons-feather.html">
+                    <a class="sidebar-link" href="inventory.htm">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
-                    </a>
-                </li>
+      <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
+                            </a>
+                        </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
+                    <a class="sidebar-link" href="salary.htm">
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
+                    <a class="sidebar-link" href="notifications.htm">
                         <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
                     </a>
                 </li>
@@ -460,6 +445,9 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
 
-        <script src="admin/static/js/app.js"></script>
+        <script>
+            feather.replace();
+        </script>
+        <script src="../assets/admin/js/app.js"></script>
     </body>
 </html>

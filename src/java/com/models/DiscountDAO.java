@@ -13,14 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Acer
  */
 public interface DiscountDAO {
-    public List<Discount> findAll();
-
-    void save(Discount discount, MultipartFile imageFile, ServletContext servletContext); 
-
-    Discount findById(int id);
-
+    List<Discount> findAll();
+    void save(Discount discount, MultipartFile imageFile, ServletContext servletContext);
     void update(Discount discount, MultipartFile imageFile, ServletContext servletContext);
-
-
-    void deleteById(int id);
+    void deleteById(int discountId);
+    Discount findById(int id);
+    
+    List<Discount> findPaginated(int page, int pageSize);
+    List<Discount> searchByKeyword(String keyword, int page, int pageSize);
+    int countByKeyword(String keyword);
+    int getTotalDiscounts();
+    String findClosestMatch(String keyword); 
 }

@@ -12,6 +12,7 @@
     </head>
     <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
@@ -35,7 +36,7 @@
 
             <title>NestMart - Categories</title>
 
-            <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
             <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
             <style>
                 .search-container {
@@ -140,6 +141,110 @@
                 .table td {
                     vertical-align: middle; /* Center-align text vertically in table cells */
                 }
+              .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+}
+
+.image-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.image-item img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.delete-checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+/* Ẩn checkbox mặc định */
+.delete-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+/* Tạo checkbox tùy chỉnh */
+.delete-checkbox label {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #333;
+    user-select: none;
+}
+
+.delete-checkbox label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid #007bff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Tạo dấu check */
+.delete-checkbox label::after {
+    content: '✓';
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* Khi checkbox được chọn */
+.delete-checkbox input[type="checkbox"]:checked + label::before {
+    background-color: #007bff;
+}
+
+.delete-checkbox input[type="checkbox"]:checked + label::after {
+    opacity: 1;
+}
+
+/* Hiệu ứng hover */
+.delete-checkbox label:hover::before {
+    border-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+
+    .image-item img {
+        height: 80px;
+    }
+}
             </style>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Welcome to Spring Web MVC project</title>
@@ -158,98 +263,82 @@
                                 Pages
                             </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="index.html">
-                                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                                </a>
-                            </li>
+                                <li class="sidebar-item">
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
-                            <li class="sidebar-item active">
-                                <a class="sidebar-link" href="accounts-management.html">
-                                    <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Accounts Management</span>
+                            </a>
+                        </li>
 
-                                </a>
-                            </li>
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="pages-sign-in.html">
-                                    <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="brand.htm">
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="pages-sign-up.html">
-                                    <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item ">
-                                <a class="sidebar-link" href="pages-blank.html">
-                                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categoryDetail.htm">
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-header">
-                                Tools & Components
-                            </li>
+                        <li class="sidebar-item ">
+                            <a class="sidebar-link" href="discount.htm">
+                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-buttons.html">
-                                    <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-forms.html">
-                                    <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="offers.htm">
+                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-cards.html">
-                                    <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="schedule.htm">
+                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-tyography.html">
-                                    <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                                </a>
-                            </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/icons-feather.html">
-                                    <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                                </a>
-                            </li>
 
-                            <li class="sidebar-header">
-                                Plugins & Addons
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="inventory.htm">
+                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/charts-chartjs.html">
-                                    <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
+                            </a>
+                        </li>
 
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/maps-google.html">
-                                    <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                                </a>
-                            </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="salary.htm">
+                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="notifications.htm">
+                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
+                            </a>
+                        </li>
                         </ul>   
 
-                        <div class="sidebar-cta">
-                            <div class="sidebar-cta-content">
-                                <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                                <div class="mb-3 text-sm">
-                                    Are you looking for more components? Check out our premium version.
-                                </div>
-                                <div class="d-grid">
-                                    <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </nav>
 
@@ -418,102 +507,122 @@
                     <main class="content">
                         <div class="container mt-5">
         <h2>Update Product</h2>
-        <form action="${pageContext.request.contextPath}/productUpdate.htm" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="productID" value="${product.productID}" />
+       <form action="../admin/productUpdate.htm" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="productID" value="${product.productID}" />
 
-            <table class="table table-bordered">
-                <tr>
-                    <th>Field</th>
-                    <th>Value</th>
-                </tr>
-                <tr>
-                    <td>Product Name</td>
-                    <td>
-                        <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Category</td>
-                    <td>
-                        <select class="form-control" id="categoryID" name="categoryID" required>
-                            <c:forEach var="category" items="${listCategories}">
-                                <option value="${category.categoryID}" ${category.categoryID == product.categoryID ? 'selected' : ''}>
-                                    ${category.categoryName}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Brand</td>
-                    <td>
-                        <select class="form-control" id="brandID" name="brandID" required>
-                            <c:forEach var="brand" items="${listBrands}">
-                                <option value="${brand.brandID}" ${brand.brandID == product.brandID ? 'selected' : ''}>
-                                    ${brand.brandName}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td>
-                        <textarea class="form-control" id="productDescription" name="productDescription" rows="4" required>${product.productDescription}</textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Unit Price</td>
-                    <td>
-                        <input type="number" class="form-control" id="unitPrice" name="unitPrice" value="${product.unitPrice}" step="0.01" required>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Discount</td>
-                    <td>
-                        <input type="number" class="form-control" id="discount" name="discount" value="${product.discount}" step="0.01">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Average Rating</td>
-                    <td>
-                        <input type="number" class="form-control" id="averageRating" name="averageRating" value="${product.averageRating}" step="1" min="0" max="5">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Current Image</td>
-                    <td>
-                        <img src="${pageContext.request.contextPath}/assets/admin/images/uploads/products/${product.image}" alt="Product Image" class="img-thumbnail" width="100">
-                    </td>
-                </tr>
-                <tr>
-                    <td>New Image</td>
-                    <td>
-                        <input type="file" class="form-control" id="imageFile" name="imageFile">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Date Added</td>
-                    <td>
-            <input type="date" class="form-control" id="dateAdded" name="dateAdded" value="${product.dateAdded}" required>
-                    </td>
-                </tr>
-            </table>
-            <button type="submit" class="btn btn-primary">Update Product</button>
-            <a href="${pageContext.request.contextPath}/products.htm" class="btn btn-secondary">Cancel</a>
-        </form>
+    <table class="table table-bordered">
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Product Name</td>
+            <td>
+                <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>
+                <select class="form-control" id="categoryID" name="categoryID" required>
+                    <c:forEach var="category" items="${listCategories}">
+                        <option value="${category.categoryID}" ${category.categoryID == product.categoryID ? 'selected' : ''}>
+                            ${category.categoryName}
+                        </option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Brand</td>
+            <td>
+                <select class="form-control" id="brandID" name="brandID" required>
+                    <c:forEach var="brand" items="${listBrands}">
+                        <option value="${brand.brandID}" ${brand.brandID == product.brandID ? 'selected' : ''}>
+                            ${brand.brandName}
+                        </option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>
+                <textarea class="form-control" id="productDescription" name="productDescription" rows="4" required>${product.productDescription}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Unit Price</td>
+            <td>
+                <input type="text" class="form-control" id="unitPrice" name="unitPrice"
+                       value="<fmt:formatNumber value="${product.unitPrice}" pattern="#,##0"/>" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Discount</td>
+            <td>
+                <input type="number" class="form-control" id="discount" name="discount" value="${product.discount}" step="0.01">
+            </td>
+        </tr>
 
-        <c:if test="${not empty successMessage}">
-            <div class="alert alert-success mt-3">
-                <c:out value="${successMessage}" />
-            </div>
-        </c:if>
+                <tr>
+            <td>Current Images</td>
+            <td>
+                <div class="image-grid">
+                    <c:forEach var="image" items="${product.images}" varStatus="status">
+                        <div class="image-item">
+                            <img src="../assets/admin/images/uploads/products/${image.images}" 
+                                 alt="Product Image">
+                            <div class="delete-checkbox">
+                                <input type="checkbox" name="imagesToDelete" 
+                                       value="${image.images}" id="deleteImage${status.index}">
+                                <label for="deleteImage${status.index}">Delete</label>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Number of New Images</td>
+            <td>
+                <select id="imageCount" class="form-control" onchange="generateImageInputs()">
+                    <c:forEach var="i" begin="1" end="10">
+                        <option value="${i}">${i}</option>
+                    </c:forEach>
+                </select>
+            </td>
+        </tr>
+        <tr id="imageUploadRow">
+            <td>New Images</td>
+            <td id="imageUploadContainer">
+                <input type="file" class="form-control" name="imageFiles" >
+            </td>
+        </tr>
+        <tr>
+            <td>Date Added</td>
+            <td>
+                <input type="date" class="form-control" id="dateAdded" name="dateAdded" value="${product.dateAdded}" required>
+            </td>
+        </tr>
+    </table>
 
-        <c:if test="${not empty errorMessage}">
-            <div class="alert alert-danger mt-3">
-                <c:out value="${errorMessage}" />
-            </div>
-        </c:if>
+    <button type="submit" class="btn btn-primary">Update Product</button>
+    <a href="../admin/products.htm" class="btn btn-secondary">Cancel</a>
+</form>
+
+<c:if test="${not empty successMessage}">
+    <div class="alert alert-success mt-3">
+        <c:out value="${successMessage}" />
+    </div>
+</c:if>
+
+<c:if test="${not empty errorMessage}">
+    <div class="alert alert-danger mt-3">
+        <c:out value="${errorMessage}" />
+    </div>
+</c:if>
+
     </div>
             </main>
             <footer class="footer">
@@ -547,6 +656,24 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
 
+<script type="text/javascript">
+    function generateImageInputs() {
+        var imageCount = document.getElementById('imageCount').value;
+        var container = document.getElementById('imageUploadContainer');
+        container.innerHTML = '';
+
+        for (var i = 0; i < imageCount; i++) {
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'imageFiles';
+            input.className = 'form-control mt-2';
+            container.appendChild(input);
+        }
+    }
+</script>
+     <script>
+        feather.replace();
+    </script>
     <script src="admin/static/js/app.js"></script>
 </body>
 </html>

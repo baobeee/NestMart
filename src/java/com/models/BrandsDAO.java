@@ -12,7 +12,17 @@ public interface BrandsDAO {
 
     void update(Brands brand);
 
-    void deleteById(int id);
-        String getBrandNameById(int id);
+void deleteById(int id);
+    String getBrandNameById(int id);
+
+    int getTotalBrands();
+
+    List<Brands> findPaginated(int page, int pageSize);
+
+    List<Brands> searchByKeyword(String keyword);
+
+    String findClosestMatch(String keyword);
+
+    int levenshteinDistance(String a, String b);
 
 }

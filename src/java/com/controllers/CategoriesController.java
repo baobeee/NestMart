@@ -13,55 +13,77 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/admin")
 public class CategoriesController {
     @Autowired
     CategoriesDAO categoriesDAO;
-    @RequestMapping(value = "category", method = RequestMethod.GET)
-    public String showCategories (ModelMap model) {
-        List<Categories> listCategories = categoriesDAO.findAll();
-        System.out.println(listCategories); 
+    @RequestMapping(value = "categories", method = RequestMethod.GET)
+    public String showCategories(ModelMap model, 
+                                 @RequestParam(defaultValue = "1") int page, 
+                                 @RequestParam(defaultValue = "12") int pageSize, 
+                                 @RequestParam(required = false) String keyword) {
+        int totalCategories = categoriesDAO.getTotalCategories();
+        int totalPages = (int) Math.ceil((double) totalCategories / pageSize);
+
+        List<Categories> listCategories;
+        String closestMatch = null;
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            listCategories = categoriesDAO.searchByKeyword(keyword);
+            // Find the closest match for typo-tolerance
+            closestMatch = categoriesDAO.findClosestMatch(keyword);
+        } else {
+            listCategories = categoriesDAO.findPaginated(page, pageSize);
+        }
+
         model.addAttribute("listCategories", listCategories);
-        return "/admin/category"; 
-    }
-     // Display the form to create a new category
-    @RequestMapping(value = "categoryCreate", method = RequestMethod.GET)
-    public String showCreateCategoryForm(Model model) {
-        model.addAttribute("category", new Categories()); // Add an empty category object
-        return "/admin/categoryCreate"; // View name for the create category form
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("closestMatch", closestMatch);
+
+        return "/admin/category";
     }
 
-    // Handle form submission to create a new category
+    @RequestMapping(value = "categoryCreate", method = RequestMethod.GET)
+    public String showCreateCategoryForm(Model model) {
+        model.addAttribute("category", new Categories()); 
+        return "/admin/categoryCreate"; 
+    }
+
     @PostMapping(value = "categoryCreate")
     public String createCategory(@ModelAttribute("categories") Categories category) {
-        categoriesDAO.save(category); // Save the new category
-        return "redirect:/categories.htm"; // Redirect to the category list page
+        categoriesDAO.save(category); 
+        return "redirect:/admin/categories.htm";
     }
     
- // Display the form to edit an existing category
-    @RequestMapping(value = "categoryUpdate.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "categoryUpdate", method = RequestMethod.GET)
     public String showEditCategoryForm(@RequestParam("categoryID") int id, Model model) {
             System.out.println("GET request received for categoryUpdate.htm with ID: " + id);
 
         Categories category = categoriesDAO.findById(id);
         model.addAttribute("category", category);
-        return "/admin/categoryUpdate"; // View name for the edit category form
+        return "/admin/categoryUpdate";
     }
 
-    // Handle form submission to update an existing category
-   @RequestMapping(value = "categoryUpdate.htm",  method = RequestMethod.POST)
+   @RequestMapping(value = "categoryUpdate",  method = RequestMethod.POST)
 public String updateCategory(@ModelAttribute("category") Categories category) {
     System.out.println("Updating category: " + category.getCategoryID() + ", " + category.getCategoryName());
     categoriesDAO.update(category);
-    return "redirect:/categories.htm";
+    return "redirect:/admin/categories.htm";
 }
-    // Handle request to delete a category
-    @RequestMapping(value = "categoryDelete", method = RequestMethod.GET)
-    public String deleteCategory(@RequestParam("categoryID") int id) {
-        categoriesDAO.deleteById(id); // Delete the category
-        return "redirect:/categories.htm"; // Redirect to the category list page
+        @RequestMapping(value = "categoryDelete", method = RequestMethod.GET)
+    public String deleteCategory(@RequestParam("categoryID") int id, RedirectAttributes redirectAttributes) {
+        try {
+            categoriesDAO.deleteById(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Category deleted successfully");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/admin/categories.htm";
     }
 
 }

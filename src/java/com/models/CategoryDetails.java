@@ -1,5 +1,8 @@
 package com.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CategoryDetails {
     private int categoryDetailID;
     private int categoryID;
@@ -8,6 +11,8 @@ public class CategoryDetails {
     private String attributeValue;
     private String productName;
     private String categoryName;
+     private int numAttributes;
+    private List<CategoryDetails> attributes;
 
     public CategoryDetails() {
         this.categoryDetailID = 0;
@@ -17,9 +22,12 @@ public class CategoryDetails {
         this.attributeValue = "";
         this.categoryName = "";
         this.productName = "";
+           this.numAttributes = 1;
+        this.attributes = new ArrayList<>();
+        
     }
 
-    public CategoryDetails(int categoryDetailID, int categoryID, String productID, String attributeName, String attributeValue , String categoryName, String productName) {
+    public CategoryDetails(int categoryDetailID, int categoryID, String productID, String attributeName, String attributeValue, String productName, String categoryName, int numAttributes, List<CategoryDetails> attributes) {
         this.categoryDetailID = categoryDetailID;
         this.categoryID = categoryID;
         this.productID = productID;
@@ -27,6 +35,8 @@ public class CategoryDetails {
         this.attributeValue = attributeValue;
         this.categoryName = categoryName;
         this.productName = productName;
+           this.numAttributes = 0; 
+        this.attributes = attributes != null ? attributes : new ArrayList<>();
 
                 
     }
@@ -85,5 +95,21 @@ public class CategoryDetails {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public int getNumAttributes() {
+        return numAttributes;
+    }
+
+    public void setNumAttributes(int numAttributes) {
+        this.numAttributes = numAttributes;
+    }
+
+    public List<CategoryDetails> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<CategoryDetails> attributes) {
+        this.attributes = attributes;
     }
 }

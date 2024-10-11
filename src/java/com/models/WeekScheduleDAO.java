@@ -18,30 +18,22 @@ import java.util.Optional;
  */
 public interface WeekScheduleDAO {
 
-    public boolean isWeekScheduleExists(Date startDate, Date endDate);
+    List<WeekSchedule> findAll();
 
-    public void generateSalariesForWeek(int weekScheduleID);
+    WeekSchedule findByID(int weekScheduleID);
 
-    public List<WeekSchedule> getAllWeekSchedules();
+    public void save(WeekSchedule weekSchedule);
 
-    public LinkedHashMap<String, Map<String, List<WeekDetails>>> getWeekDetailsGroupedByDay(int weekScheduleID);
+    public boolean isWeekScheduleExists(Date valueOf, Date valueOf0);
 
-    public WeekSchedule getWeekScheduleById(int weekScheduleID);
+    public boolean hasAssignedWeekDetails(int weekScheduleID);
 
-    public void createWeekSchedule(WeekSchedule weekSchedule);
+    public List<WeekSchedule> findWeeksWithSalaries();
 
-    public boolean hasDetailsForWeek(int weekScheduleID);
+    public void delete(int weekScheduleID);
 
-    public void deleteWeekSchedule(int WeekScheduleID);
+    public List<WeekSchedule> getPagedWeekSchedules(int page, int pageSize);
 
-    public List<DayOfWeek> getDaysOfWeek();
+    public int getTotalWeekSchedules();
 
-    public List<Shift> getAllShifts();
-
-    public List<Accounts> getAllEmployees();
-
-    public boolean isWeekScheduleExists(int weekScheduleID);
-    
-    public void insertWeekDetails(int weekScheduleID, int dayID, int shiftID, int employeeID,
-            BigDecimal overtimeHours, String status, String notes);
 }

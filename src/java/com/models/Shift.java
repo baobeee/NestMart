@@ -60,4 +60,24 @@ public class Shift {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public boolean isValidShift() {
+        return startTime.before(endTime);
+    }
+
+    // Phương thức để tính độ dài ca
+    public long getShiftDuration() {
+        return (endTime.getTime() - startTime.getTime()) / (60 * 1000);
+    }
+
+    @Override
+    public String toString() {
+        return "Shift{" +
+                "shiftID=" + shiftID +
+                ", shiftName='" + shiftName + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

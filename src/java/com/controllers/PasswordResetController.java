@@ -46,8 +46,8 @@ public class PasswordResetController {
         String token = UUID.randomUUID().toString();
         tokenStore.put(token, email);
 
-        // Tạo link reset mật khẩu
-        String resetLink = "http://localhost:8080/nestmartFinal/resetPassword.htm?token=" + token;
+        // Tạo link reset mật khẩu-ip server deploy
+        String resetLink = "http://172.16.2.251:8080/nestmartappFinal/resetPassword.htm?token=" + token;
 
         // Gửi email với link reset
         emailService.sendResetPasswordEmail(email, resetLink);
@@ -64,7 +64,7 @@ public class PasswordResetController {
         }
 
         model.addAttribute("token", token);
-        return "resetPassword";  // Trả về trang để nhập mật khẩu mới
+        return "resetPassword"; 
     }
 
     @RequestMapping(value = "/resetPassword.htm", method = RequestMethod.POST)

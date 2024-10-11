@@ -23,7 +23,7 @@
 
         <title>NestMart - Categories</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -146,98 +146,83 @@
                             Pages
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.html">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                            <li class="sidebar-item">
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
+
                             </a>
                         </li>
 
                         <li class="sidebar-item active">
-                            <a class="sidebar-link" href="accounts-management.html">
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Accounts Management</span>
-
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-in.html">
-                                <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                            <a class="sidebar-link" href="brand.htm">
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-up.html">
-                                <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categoryDetail.htm">
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item ">
-                            <a class="sidebar-link" href="pages-blank.html">
-                                <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-header">
-                            Tools & Components
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-buttons.html">
-                                <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-forms.html">
-                                <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
+                            <a class="sidebar-link" href="discount.htm">
+                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-cards.html">
-                                <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                            <a class="sidebar-link" href="offers.htm">
+                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-tyography.html">
-                                <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
+                            <a class="sidebar-link" href="schedule.htm">
+                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="inventory.htm">
+                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/icons-feather.html">
-                                <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-header">
-                            Plugins & Addons
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/charts-chartjs.html">
-                                <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/maps-google.html">
-                                <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                            <a class="sidebar-link" href="salary.htm">
+                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="notifications.htm">
+                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
                             </a>
                         </li>
                     </ul>   
 
-                    <div class="sidebar-cta">
-                        <div class="sidebar-cta-content">
-                            <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                            <div class="mb-3 text-sm">
-                                Are you looking for more components? Check out our premium version.
-                            </div>
-                            <div class="d-grid">
-                                <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </nav>
 
@@ -417,23 +402,24 @@
                                     <i data-feather="file-text"></i>
                                 </button>
                                 <!-- Update the Add button -->
-                                <button class="btn btn-add" onclick="window.location.href = '${pageContext.request.contextPath}/categoryCreate.htm'">
+                                <button class="btn btn-add" onclick="window.location.href = '../admin/categoryCreate.htm'">
                                     <i data-feather="plus"></i>
                                 </button>
 
                             </div>
                         </div>
-                                 <form action="${pageContext.request.contextPath}/productCreate.htm" method="post" enctype="multipart/form-data">
-    <!-- Hiển thị thông báo lỗi nếu có -->
+                                 <form action="../admin/productCreate.htm" method="post" enctype="multipart/form-data">
+    <!-- Display error message if any -->
     <c:if test="${not empty errorMessage}">
         <div class="alert alert-danger">${errorMessage}</div>
     </c:if>
 
     <table class="table table-hover my-0">
         <tbody>
+            <!-- Other product input fields -->
             <tr>
                 <td><label for="productID">Product ID:</label></td>
-                <td><input type="text" class="form-control" id="productID" name="productID" value="${product.productID}" required /></td>
+                <td><input type="text" class="form-control" id="productID" name="productID" value="${product.productID}" /></td>
             </tr>
             <tr>
                 <td><label for="categoryID">Category:</label></td>
@@ -455,40 +441,55 @@
                     </select>
                 </td>
             </tr>
+            <!-- More input fields -->
             <tr>
                 <td><label for="productName">Product Name:</label></td>
-                <td><input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" required /></td>
+                <td><input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" /></td>
             </tr>
             <tr>
                 <td><label for="productDescription">Description:</label></td>
-                <td><textarea class="form-control" id="productDescription" name="productDescription" rows="4" required>${product.productDescription}</textarea></td>
+                <td><textarea class="form-control" id="productDescription" name="productDescription" rows="4">${product.productDescription}</textarea></td>
             </tr>
             <tr>
                 <td><label for="unitPrice">Unit Price:</label></td>
-                <td><input type="number" step="0.01" class="form-control" min="1" id="unitPrice" name="unitPrice" value="${product.unitPrice}" required /></td>
+                <td><input type="text" class="form-control" id="unitPrice" name="unitPrice" value="${product.unitPrice}" required></td>
             </tr>
-            <tr>
-                <td><label for="imageFile">Image:</label></td>
-                <td><input type="file" class="form-control" id="imageFile" name="imageFile" /></td>
-            </tr>
+            
+            <!-- Dynamic Image Upload Section -->
+             <tr>
+        <td><label for="imageCount">Number of Images:</label></td>
+        <td>
+            <select class="form-control" id="imageCount" name="imageCount" onchange="generateImageInputs(this.value)" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </td>
+    </tr>
+    <tr id="imageInputsContainer">
+        <td colspan="2">
+            <div id="imageInputs">
+                <!-- Dynamic image input fields will be added here -->
+            </div>
+        </td>
+    </tr>
             <tr>
                 <td><label for="discount">Discount:</label></td>
                 <td><input type="number" step="0.01" class="form-control" id="discount" name="discount" value="${product.discount}" /></td>
             </tr>
-            <tr>
-                <td><label for="averageRating">Average Rating:</label></td>
-                <td><input type="number" step="0.1" class="form-control" id="averageRating" name="averageRating" value="${product.averageRating}" /></td>
-            </tr>
+      
+            <!-- Submit buttons -->
             <tr>
                 <td colspan="2" class="text-right">
                     <button type="submit" class="btn btn-primary">Create Product</button>
-                    <a href="${pageContext.request.contextPath}/products.htm" class="btn btn-secondary">Cancel</a>
+                    <a href="../admin/products.htm" class="btn btn-secondary">Cancel</a>
                 </td>
             </tr>
         </tbody>
     </table>
 </form>
-
                     </div>
                 </main>
                 <footer class="footer">
@@ -521,7 +522,75 @@
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
+         <script>
+        feather.replace();
+    </script>
+<script>
+function formatNumber(value) {
+    // Loại bỏ tất cả các ký tự không phải số và dấu chấm
+    value = value.replace(/[^\d.]/g, '');
+    
+    // Tách phần nguyên và phần thập phân
+    let parts = value.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts.length > 1 ? '.' + parts[1].slice(0, 3) : '';
 
+    // Định dạng phần nguyên
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return integerPart + decimalPart;
+}
+
+function onInputChange(event) {
+    let input = event.target;
+    let cursorPosition = input.selectionStart;
+    let oldValue = input.value;
+    let newValue = formatNumber(input.value);
+    
+    input.value = newValue;
+    // Điều chỉnh vị trí con trỏ
+    let cursorOffset = newValue.length - oldValue.length;
+    input.setSelectionRange(cursorPosition + cursorOffset, cursorPosition + cursorOffset);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    let unitPriceInput = document.getElementById("unitPrice");
+    unitPriceInput.addEventListener("input", onInputChange);
+    
+    // Định dạng giá trị ban đầu nếu có
+    if (unitPriceInput.value) {
+        unitPriceInput.value = formatNumber(unitPriceInput.value);
+    }
+});
+function generateImageInputs(count) {
+    var container = document.getElementById("imageInputs");
+    container.innerHTML = ""; // Clear previous inputs
+
+    for (var i = 1; i <= count; i++) {
+        var inputDiv = document.createElement("div");
+        inputDiv.className = "form-group";
+
+        var label = document.createElement("label");
+        label.setAttribute("for", "imageFile" + i);
+        label.textContent = "Image " + i + ":";
+
+        var input = document.createElement("input");
+        input.type = "file";
+        input.className = "form-control";
+        input.id = "imageFile" + i;
+        input.name = "imageFiles"; // Ensure this is the same for all files
+        input.accept = "image/*";
+
+        inputDiv.appendChild(label);
+        inputDiv.appendChild(input);
+        container.appendChild(inputDiv);
+    }
+}
+
+// Initialize with one image input field by default
+window.onload = function () {
+    generateImageInputs(1);
+};
+</script>
         <script src="admin/static/js/app.js"></script>
     </body>
 </html>

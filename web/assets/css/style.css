@@ -6562,6 +6562,7 @@ body.open-overlay #overlay{
     display: block;
     margin-bottom: 40px;
     margin-top: 10px;
+    margin-left: 50px;
 }
 .main-content>.posts-list li{
     list-style: none;

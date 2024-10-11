@@ -7,11 +7,13 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,8 +23,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class AccountsDAOImpl implements AccountsDAO {
 
     private JdbcTemplate jdbcTemplate;
-
-    private static final Logger logger = LoggerFactory.getLogger(AccountsDAO.class);
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -39,13 +39,13 @@ public class AccountsDAOImpl implements AccountsDAO {
     public List<Accounts> findAll() {
         try {
             jdbcTemplate.queryForObject("SELECT 1", Integer.class);
-            System.out.println("Database connection successful.");
         } catch (Exception e) {
             System.out.println("Database connection failed: " + e.getMessage());
         }
 
         String query = "SELECT AccountID,"
                 + " PhoneNumber,"
+                + " Password,"
                 + " Email,"
                 + " Role,"
                 + " Gender,"
@@ -57,7 +57,7 @@ public class AccountsDAOImpl implements AccountsDAO {
         List<Accounts> accountList = new ArrayList<>();
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
 
-        System.out.println("Rows returned: " + rows.size()); // Kiểm tra số lượng bản ghi
+        System.out.println("Rows returned: " + rows.size());
 
         for (Map<String, Object> row : rows) {
             Accounts a = new Accounts(
@@ -165,8 +165,6 @@ public class AccountsDAOImpl implements AccountsDAO {
         String query = "DELETE FROM Accounts WHERE AccountID = ?";
         jdbcTemplate.update(query, id);
     }
-    
-
 
     @Override
     public boolean existsByPhoneNumber(String phoneNumber) {
@@ -235,15 +233,6 @@ public class AccountsDAOImpl implements AccountsDAO {
         }
     }
 
-//    @Override
-//    public String getRoleByEmailAndPassword(String email, String password) {
-//        String sql = "SELECT Role FROM Accounts WHERE Email = ? AND Password = ?";
-//        try {
-//            return jdbcTemplate.queryForObject(sql, new Object[]{email, password}, String.class);
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
     @Override
     public Integer getRoleByEmail(String email) {
         String sql = "SELECT Role FROM Accounts WHERE Email = ?";
@@ -266,10 +255,63 @@ public class AccountsDAOImpl implements AccountsDAO {
         }
     }
 
-     @Override
+    @Override
     public void updatePassword(String email, String newPassword) {
         String sql = "UPDATE Accounts SET Password = ? WHERE Email = ?";
         jdbcTemplate.update(sql, newPassword, email);
+    }
+
+    @Override
+    public Accounts findByPhoneNumber(String phoneNumber) {
+        String sql = "SELECT * FROM Accounts WHERE PhoneNumber = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{phoneNumber}, (rs, rowNum) -> {
+                Accounts account = new Accounts();
+                account.setAccountID(rs.getInt("AccountID"));
+                account.setEmail(rs.getString("Email"));
+                account.setFullName(rs.getString("FullName"));
+                account.setPhoneNumber(rs.getString("PhoneNumber"));
+                account.setGender(rs.getString("Gender"));
+                account.setAddress(rs.getString("Address"));
+                account.setBirthday(rs.getDate("Birthday"));
+                account.setRole(rs.getInt("Role"));
+                // Thêm các trường khác nếu cần
+                return account;
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Accounts> getAccountsByRoles(List<Integer> roles) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Accounts WHERE Role IN (");
+
+        for (int i = 0; i < roles.size(); i++) {
+            sql.append("?");
+            if (i < roles.size() - 1) {
+                sql.append(", ");
+            }
+        }
+        sql.append(")");
+
+        Object[] params = roles.toArray();
+        return jdbcTemplate.query(sql.toString(), params, new RowMapper<Accounts>() {
+            @Override
+            public Accounts mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Accounts account = new Accounts();
+                account.setAccountID(rs.getInt("accountID"));
+                account.setFullName(rs.getString("fullName"));
+                account.setPhoneNumber(rs.getString("phoneNumber"));
+                account.setEmail(rs.getString("email"));
+                account.setRole(rs.getInt("role"));
+                account.setGender(rs.getString("gender"));
+                account.setBirthday(rs.getDate("birthday"));
+                account.setAddress(rs.getString("address"));
+                account.setHourlyRate(rs.getBigDecimal("hourlyRate"));
+                return account;
+            }
+        });
     }
 
     private static class AccountRowMapper implements RowMapper<Accounts> {
@@ -296,5 +338,123 @@ public class AccountsDAOImpl implements AccountsDAO {
         String sql = "SELECT COUNT(*) FROM Accounts WHERE PhoneNumber = ?";
         Integer count = jdbcTemplate.queryForObject(sql, new Object[]{phone}, Integer.class);
         return count != null && count > 0;
+    }
+
+    @Override
+    public List<Accounts> searchAccounts(String keyword, int page, int pageSize) {
+        // Đảm bảo rằng offset không bao giờ âm
+        if (page < 1) {
+            page = 1;
+        }
+
+        String query = "SELECT * FROM Accounts WHERE FullName LIKE ? OR Email LIKE ? ORDER BY AccountID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String searchKeyword = "%" + keyword + "%";
+        int offset = (page - 1) * pageSize;
+
+        return jdbcTemplate.query(query, new Object[]{searchKeyword, searchKeyword, offset, pageSize}, new RowMapper<Accounts>() {
+            @Override
+            public Accounts mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Accounts(
+                        rs.getInt("AccountID"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getInt("Role"),
+                        rs.getString("Gender"),
+                        rs.getString("FullName"),
+                        rs.getDate("Birthday"),
+                        rs.getString("Address"),
+                        rs.getBigDecimal("HourlyRate")
+                );
+            }
+        });
+    }
+
+    @Override
+    public List<Accounts> getPagedAccounts(String keyword, int page, int pageSize) {
+        String query = "SELECT * FROM Accounts WHERE FullName LIKE ? OR Email LIKE ? ORDER BY AccountID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String searchKeyword = "%" + keyword + "%";
+        int offset = (page - 1) * pageSize;
+
+        return jdbcTemplate.query(query, new Object[]{searchKeyword, searchKeyword, offset, pageSize}, new RowMapper<Accounts>() {
+            @Override
+            public Accounts mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Accounts(
+                        rs.getInt("AccountID"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getInt("Role"),
+                        rs.getString("Gender"),
+                        rs.getString("FullName"),
+                        rs.getDate("Birthday"),
+                        rs.getString("Address"),
+                        rs.getBigDecimal("HourlyRate")
+                );
+            }
+        });
+    }
+
+    @Override
+    public int getTotalAccounts(String keyword) {
+        String query = "SELECT COUNT(*) FROM Accounts WHERE FullName LIKE ? OR Email LIKE ?";
+        String searchKeyword = "%" + keyword + "%";
+
+        return jdbcTemplate.queryForObject(query, new Object[]{searchKeyword, searchKeyword}, Integer.class);
+    }
+
+    @Override
+    public List<Accounts> findEmployeesByRoles(List<Integer> roles) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Accounts WHERE Role IN (");
+
+        // Tạo câu truy vấn với số lượng parameter tương ứng với số role
+        for (int i = 0; i < roles.size(); i++) {
+            sql.append("?");
+            if (i < roles.size() - 1) {
+                sql.append(", ");
+            }
+        }
+        sql.append(")");
+        Object[] params = roles.toArray();
+        return jdbcTemplate.query(sql.toString(), params, new RowMapper<Accounts>() {
+            @Override
+            public Accounts mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Accounts(
+                        rs.getInt("AccountID"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Password"),
+                        rs.getString("Email"),
+                        rs.getInt("Role"),
+                        rs.getString("Gender"),
+                        rs.getString("FullName"),
+                        rs.getDate("Birthday"),
+                        rs.getString("Address"),
+                        rs.getBigDecimal("HourlyRate")
+                );
+            }
+        });
+    }
+@Override
+public Accounts findShipperById(int orderID) {
+    String sql = "SELECT a.AccountID, a.FullName FROM Accounts a " +
+                 "JOIN Orders o ON a.AccountID = o.ShipperID " +
+                 "WHERE o.OrderID = ?";
+    
+    return jdbcTemplate.queryForObject(sql, new Object[]{orderID}, (rs, rowNum) -> {
+        Accounts account = new Accounts();
+        account.setAccountID(rs.getInt("AccountID"));
+        account.setFullName(rs.getString("FullName"));
+        return account;
+    });
+}
+@Override
+    public List<Accounts> findShippers() {
+        String sql = "SELECT AccountID, FullName FROM Accounts WHERE Role = 3";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Accounts account = new Accounts();
+            account.setAccountID(rs.getInt("AccountID"));
+            account.setFullName(rs.getString("FullName"));
+            return account;
+        });
     }
 }

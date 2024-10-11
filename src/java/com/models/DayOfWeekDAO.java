@@ -17,3 +17,4 @@ public interface DayOfWeekDAO {
     void update(DayOfWeek dayOfWeek);
     void delete(int dayID);
 }
+    

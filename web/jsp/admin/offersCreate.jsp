@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -23,7 +24,7 @@
 
         <title>NestMart - Categories</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -145,87 +146,84 @@
                         <li class="sidebar-header">
                             Pages
                         </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.html">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="accounts-management.html">
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Accounts Management</span>
+    <li class="sidebar-item">
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-in.html">
-                                <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-up.html">
-                                <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+                            <a class="sidebar-link" href="brand.htm">
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categoryDetail.htm">
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item ">
-                            <a class="sidebar-link" href="pages-blank.html">
-                                <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+                            <a class="sidebar-link" href="discount.htm">
+                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-header">
-                            Tools & Components
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-buttons.html">
-                                <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-forms.html">
-                                <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="offers.htm">
+                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-cards.html">
-                                <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                            <a class="sidebar-link" href="schedule.htm">
+                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="inventory.htm">
+                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-tyography.html">
-                                <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/icons-feather.html">
-                                <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-header">
-                            Plugins & Addons
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/charts-chartjs.html">
-                                <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                            <a class="sidebar-link" href="salary.htm">
+                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/maps-google.html">
-                                <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                            <a class="sidebar-link" href="notifications.htm">
+                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
                             </a>
                         </li>
-                    </ul>   
+
+
+
+                    </ul> 
 
                     <div class="sidebar-cta">
                         <div class="sidebar-cta-content">
@@ -405,35 +403,21 @@
 
                 <main class="content">
                     <div class="container mt-4">
-                        <!-- Search and Buttons -->
-                        <div class="search-container">
-                            <input type="text" class="form-control search-input" placeholder="Search...">
-                            <button class="btn search-button">
-                                <i class="align-middle" data-feather="search"></i>
-                            </button>
-                            <!-- Icon buttons for Export and Add -->
-                            <div class="icon-container">
-                                <button class="btn btn-export">
-                                    <i data-feather="file-text"></i>
-                                </button>
-                                <!-- Update the Add button -->
-                                <button class="btn btn-add" onclick="window.location.href = '${pageContext.request.contextPath}/categoryCreate.htm'">
-                                    <i data-feather="plus"></i>
-                                </button>
 
-                            </div>
-                        </div>
                         <table class="table table-hover my-0" id="accountTable">
                             <div class="container">
                                 <h2>Create New Offers</h2>
-                                <form action="${pageContext.request.contextPath}/offersCreate.htm" method="post">
+                                <form action="${pageContext.request.contextPath}/admin/offersCreate.htm" method="post">
                                     <tr>
                                         <td>
                                             <div class="form-group">
-                                                <label for="productID">Product ID:</label>
+                                                <label for="productID">Product:</label>
                                                 <select class="form-control" id="productID" name="productID" required>
                                                     <c:forEach var="products" items="${listProducts}">
-                                                        <option value="${products.productID}">${products.productName}</option>
+                                                        <option value="${products.productID}" 
+                                                                <c:if test="${offers.productID == products.productID}">selected</c:if>>
+                                                            ${products.productName}
+                                                        </option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -442,20 +426,46 @@
                                     <tr>
                                         <td>
                                             <div class="form-group">
-                                                <label for="discountID">Discount ID:</label>
+                                                <label for="discountID">Discount:</label>
                                                 <select class="form-control" id="discountID" name="discountID" required>
                                                     <c:forEach var="discount" items="${listDiscount}">
-                                                        <option value="${discount.discountID}">${discount.discountName}</option>
+                                                        <option value="${discount.discountID}" 
+                                                                <c:if test="${offers.discountID == discount.discountID}">selected</c:if>>
+                                                            ${discount.discountName}
+                                                        </option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="discountType">Discount Type:</label>
+                                                <select class="form-control" id="discountType" name="discountType" required>
+                                                    <option value="% Discount">Percentage</option>
+                                                    <option value="Discount of money">Fixed Amount</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <label for="discountValue">Discount Value:</label>
+                                                <input type="number" class="form-control" id="discountValue" name="discountValue" step="0.01" required>
+                                            </div>
+                                            <c:if test="${not empty errorDiscount}">
+                                                <span class="text-danger">${errorDiscount}</span>
+                                            </c:if>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div class="form-group">
                                                 <label for="offerName">Offer Name:</label>
-                                                <input type="text" class="form-control" id="offerName" name="offerName" required>
+                                                <input type="text" class="form-control" id="offerName" name="offerName" required 
+                                                       value="${offers.offerName}">
                                             </div>
                                         </td>
                                     </tr>
@@ -463,33 +473,27 @@
                                         <td>
                                             <div class="form-group">
                                                 <label for="description">Description:</label>
-                                                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                                                <textarea class="form-control" id="description" name="description" rows="4" required>${offers.description}</textarea>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for="startDate">Start Date:</label>
-                                                <input type="date" class="form-control" id="startDate" name="startDate" required>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="form-group">
-                                                <label for="endDate">End Date:</label>
-                                                <input type="date" class="form-control" id="endDate" name="endDate" required>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                  
                                     <tr>
                                         <td>
                                             <button type="submit" class="btn btn-primary">Create Offer</button>
-                                            <a href="${pageContext.request.contextPath}/offers.htm" class="btn btn-secondary">Cancel</a>
+                                            <a href="${pageContext.request.contextPath}/admin/offers.htm" class="btn btn-secondary">Cancel</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <c:if test="${not empty error1}">
+                                                <div class="alert alert-danger mt-3">${error1}</div>
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </form>
+
+
                             </div>
                         </table>
 
@@ -528,4 +532,7 @@
 
         <script src="admin/static/js/app.js"></script>
     </body>
+    <script>
+        feather.replace();
+    </script>
 </html>

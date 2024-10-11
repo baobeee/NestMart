@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,10 +19,12 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
 
-        <title>NestMart - Weekly Work Schedule Details</title>
+        <title>NestMart - Weekly Work Shedule Details</title>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/admin/css/app.css" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <style>
             .search-container {
                 display: flex;
@@ -62,7 +65,6 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                margin-left: auto; /* ??y các nút v? bên ph?i */
             }
             .icon-container .btn {
                 background-color: #f1f1f1;
@@ -77,23 +79,20 @@
                 cursor: pointer;
                 font-size: 24px;
                 transition: background-color 0.3s, box-shadow 0.3s;
+                margin-top: -22px;
             }
             .icon-container .btn:hover {
                 background-color: #e0e0e0;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
+
+
             .table-actions {
                 position: relative;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 gap: 5px;
-            }
-            .table-actions {
-                display: flex;
-                gap: 5px;
-                justify-content: center;
-                align-items: center;
             }
             .table-actions .btn {
                 background-color: transparent;
@@ -123,8 +122,33 @@
                 position: relative;
             }
             .table td {
-                vertical-align: middle; /* Center-align text vertically in table cells */
+                vertical-align: middle;
             }
+            .btn-add {
+                background-color: #f1f1f1; /* Matches the background of other pages */
+                border: none;
+                color: #333;
+                width: 50px; /* Standard size for the button */
+                height: 50px;
+                border-radius: 50%; /* Circular button */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 24px; /* Size of the icon */
+                transition: background-color 0.3s, box-shadow 0.3s;
+            }
+
+            .btn-add:hover {
+                background-color: #e0e0e0; /* Hover effect similar to other pages */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .btn-add i {
+                font-size: 24px;
+                color: #333;
+            }
+
         </style>
     </head>
     <body>
@@ -143,97 +167,79 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="showaccount.htm" >
-                        <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
+                            </a>
+                        </li>
 
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-in.html">
-                        <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="brand.htm">
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-up.html">
-                        <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item  ">
-                    <a class="sidebar-link" href="pages-blank.html">
-                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categoryDetail.htm">
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-buttons.html">
-                        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item ">
+                            <a class="sidebar-link" href="discount.htm">
+                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
-                        <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="offers.htm">
+                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
-                        <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/workshedule.htm">
-                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="schedule.htm">
+                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                            </a>
+                        </li>
 
 
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="inventory.htm">
+                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="salary.htm">
+                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="notifications.htm">
+                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
+                            </a>
+                        </li>
             </ul>
 
             <div class="main">
@@ -241,181 +247,216 @@
                     <a class="sidebar-toggle js-sidebar-toggle">
                         <i class="hamburger align-self-center"></i>
                     </a>
-
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav navbar-align">
-                            <!-- Các m?c khác c?a navbar... -->
-
                             <li class="nav-item dropdown">
-                                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                                    <i class="align-middle" data-feather="settings"></i>
-                                </a>
-
                                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                    <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="User Avatar" />
                                     <span class="text-dark">${sessionScope.email}</span>
-
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.htm">Logout</a>
-
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="accounts-management.html"><i class="align-middle me-1" data-feather="users"></i> Accounts Management</a>
-                                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/logout"><i class="align-middle me-1" data-feather="log-out"></i> Log out</a>
-                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/account/accountInformation.htm">
+                                        <i class="fa fa-user"></i> Account Information
+                                    </a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/account/changePassword.htm">
+                                        <i class="fa fa-user"></i> Change Password
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.htm">
+                                        <i class="align-middle me-1" data-feather="log-out"></i> Log out
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </nav>
                 <main class="content">
                     <div class="container mt-4">
+                        <button class="btn btn-add" type="button" data-toggle="modal" data-target="#assignShiftModal">
+                            <i data-feather="plus"></i>
+                        </button>
+
                         <h2>Weekly Work Schedule Details: <i><strong>
-                                    <fmt:formatDate value="${weekSchedule.weekStartDate}" pattern="yyyy/MM/dd" /> 
+                                    <fmt:formatDate value="${weekSchedule.weekStartDate}" pattern="yyyy/MM/dd" />
                                     - 
                                     <fmt:formatDate value="${weekSchedule.weekEndDate}" pattern="yyyy/MM/dd" />
-                                </strong></i>
-                        </h2>
+                                </strong></i></h2>
 
                         <c:choose>
                             <c:when test="${hasData}">
-                                
+                                <div class="table-hover">
+                                    <table class="table table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th>Day Name</th>
+                                            <th>Shift Name</th>
+                                            <th>Employee Details</th>
+                                            <th>Overtime Hours</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="entry" items="${weekDetailsGroupedByDayAndShift}">
+                                            <c:set var="currentDay" value="${entry.key}" />
+                                            <c:set var="shifts" value="${entry.value}" />
+                                            <c:set var="isFirstShift" value="true" />
 
-                                <div class="row">
-                                    <c:forEach var="entry" items="${weekDetailsGroupedByDayAndShift}">
-                                        <div class="col-12">
-                                            <br/>
-                                            <h3><b>${entry.key}</b></h3>
-                                            <c:forEach var="shifts" items="${entry.value}">
-                                                <h4><b>&emsp;${shifts.key}</b></h4> 
-                                                <table class="table table-bordered mt-2">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Shift Start - End Time</th>
-                                                            <th>Employee Name</th>
-                                                            <th>Role</th>
-                                                            <th>Overtime Hours</th>
-                                                            <th>Status</th>
-                                                            <th>Notes</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <c:forEach var="details" items="${shifts.value}">
-                                                            <tr>
-                                                                <td><fmt:formatDate value="${details.shiftStartTime}" pattern="HH:mm" /> - 
-                                                                    <fmt:formatDate value="${details.shiftEndTime}" pattern="HH:mm" /></td>
-                                                                <td>${details.employeeName}</td>
-                                                                <td>${details.role}</td>
-                                                                <td>${details.overtimeHours}</td>
-                                                                <td>${details.status}</td>
-                                                                <td>${details.notes}</td>
-                                                            </tr>
+                                            <c:forEach var="shift" items="${shifts}">
+                                                <c:set var="currentShift" value="${shift.key}" />
+                                                <c:set var="shiftDetails" value="${shift.value}" />
+
+                                                <tr>
+                                                    <td><c:if test="${isFirstShift}">${currentDay}</c:if></td>
+                                                    <td>${currentShift}</td>
+                                                    <td>
+                                                        <c:forEach var="details" items="${shiftDetails}" varStatus="status">
+                                                            ${employeeMap[details.employeeID]} (${roleMap[details.employeeID]})
+                                                            <c:if test="${!status.last}"><br></c:if>
                                                         </c:forEach>
-                                                    </tbody>
-                                                </table>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="details" items="${shiftDetails}" varStatus="status">
+                                                            ${details.overtimeHours}
+                                                            <c:if test="${!status.last}"><br></c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="details" items="${shiftDetails}" varStatus="status">
+                                                            ${details.status}
+                                                            <c:if test="${!status.last}"><br></c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="details" items="${shiftDetails}">
+                                                            <form method="get" action="${pageContext.request.contextPath}/admin/editWeekDetail.htm">
+                                                                <input type="hidden" name="weekScheduleID" value="${details.weekScheduleID}">
+                                                                <input type="hidden" name="weekDetailID" value="${details.weekDetailID}">
+                                                                <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                                                            </form>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:forEach var="details" items="${shiftDetails}">
+                                                            <form method="post" action="${pageContext.request.contextPath}/admin/deleteShift.htm" 
+                                                                  onsubmit="return confirm('Are you sure you want to delete this shift detail?');">
+                                                                <input type="hidden" name="shiftID" value="${details.shiftID}">
+                                                                <input type="hidden" name="weekScheduleID" value="${weekSchedule.weekScheduleID}">
+                                                                <input type="hidden" name="weekDetailID" value="${details.weekDetailID}">
+                                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                            </form>
+                                                        </c:forEach>
+                                                    </td>
+                                                </tr>
+                                                <c:set var="isFirstShift" value="false" />
                                             </c:forEach>
-                                        </div>
-                                    </c:forEach>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                                 </div>
+                                
                             </c:when>
                             <c:otherwise>
                                 <p>No schedule details available for this week.</p>
                             </c:otherwise>
                         </c:choose>
                     </div>
-                </main>
-                <main class="content">
-                    <div class="container mt-4">
-                        <form action="${pageContext.request.contextPath}/admin/assignShift" method="post">
-                            <input type="hidden" name="weekScheduleID" value="${weekScheduleID}" />
+                    <!-- Modal assign shift-->
+                    <div class="modal fade" id="assignShiftModal" tabindex="-1" role="dialog" aria-labelledby="assignShiftModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="assignShiftModalLabel">Assign Shift</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="assignShiftForm" method="post" action="${pageContext.request.contextPath}/admin/assignShift.htm">
+                                        <input type="hidden" name="weekScheduleID" value="${weekSchedule.weekScheduleID}">
 
-                            <div class="form-group">
-                                <label for="dayID">Day:</label>
-                                <select id="dayID" name="dayID" class="form-control">
-                                    <c:forEach var="day" items="${daysOfWeek}">
-                                        <option value="${day.dayID}">${day.dayName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                                        <!-- Select Employee -->
+                                        <div class="form-group">
+                                            <label for="employeeSelect">Select Employee</label>
+                                            <select class="form-control" id="employeeSelect" name="employeeID">
+                                                <c:forEach var="employee" items="${accountsList}">
+                                                    <option value="${employee.accountID}">
+                                                        ${employee.fullName} (${employee.role == 2 ? 'Employee' : 'Shipper'})
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
 
-                            <div class="form-group">
-                                <label for="shiftID">Shift:</label>
-                                <select id="shiftID" name="shiftID" class="form-control">
-                                    <c:forEach var="shift" items="${shifts}">
-                                        <option value="${shift.shiftID}">${shift.shiftName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                                        <!-- Select Day -->
+                                        <div class="form-group">
+                                            <label for="daySelect">Select Day</label>
+                                            <select class="form-control" id="daySelect" name="dayID" required>
+                                                <c:forEach var="day" items="${dayOfWeekList}">
+                                                    <option value="${day.dayID}">${day.dayName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
 
-                            <div class="form-group">
-                                <label for="employeeID">Employee:</label>
-                                <select id="employeeID" name="employeeID" class="form-control">
-                                    <c:forEach var="employee" items="${employees}">
-                                        <option value="${employee.accountID}">${employee.fullName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="overtimeHours">Overtime Hours:</label>
-                                <input type="number" id="overtimeHours" name="overtimeHours" class="form-control" step="0.1" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="status">Status:</label>
-                                <input type="text" id="status" name="status" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="notes">Notes:</label>
-                                <textarea id="notes" name="notes" class="form-control"></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Assign Shift</button>
-                        </form>
-
-                    </div>
-                </main>
-
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row text-muted">
-                            <div class="col-6 text-start">
-                                <p class="mb-0">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Nestmart</strong></a> &copy;
-                                </p>
-                            </div>
-                            <div class="col-6 text-end">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-                                    </li>
-                                </ul>
+                                        <!-- Select Shift -->
+                                        <div class="form-group">
+                                            <label for="shiftSelect">Select Shift</label>
+                                            <select class="form-control" id="shiftSelect" name="shiftID" required>
+                                                <c:forEach var="shift" items="${shiftList}">
+                                                    <option value="${shift.shiftID}">${shift.shiftName}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" form="assignShiftForm">Assign Shift</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </footer>
+                </main>
             </div>
         </div>
-
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row text-muted">
+                    <div class="col-6 text-start">
+                        <p class="mb-0">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Nestmart</strong></a> &copy;
+                        </p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
+
+        <script src="../asset/admin/js/app.js"></script>
         <script>
-            feather.replace();
+                                                                      feather.replace();
         </script>
-        <script src=asset/admin/js/app.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 let totalHours = document.getElementById('totalHours');
@@ -432,5 +473,57 @@
                 hourlyRate.addEventListener('input', calculateTotalSalary);
             });
         </script>
+        <script>
+            function submitShiftForm() {
+                document.getElementById('shiftForm').submit();
+            }
+        </script>
+        <script>
+            // JavaScript to load shift details when edit button is clicked
+            document.addEventListener("DOMContentLoaded", function () {
+                const editShiftButtons = document.querySelectorAll('.edit-shift-button');
+
+                editShiftButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const weekDetailID = this.getAttribute('data-week-detail-id');
+                        loadShiftDetails(weekDetailID);
+                    });
+                });
+
+                function loadShiftDetails(weekDetailID) {
+                    // Gi? s? có m?t endpoint ?? l?y thông tin ca làm vi?c
+                    fetch(`/admin/getShiftDetails?weekDetailID=${weekDetailID}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById('editWeekDetailID').value = data.weekDetailID;
+                                document.getElementById('editEmployeeSelect').value = data.employeeID;
+                                document.getElementById('editDaySelect').value = data.dayID;
+                                document.getElementById('editShiftSelect').value = data.shiftID;
+                                document.getElementById('editOvertimeHours').value = data.overtimeHours;
+                                document.getElementById('editStatus').value = data.status;
+                                document.getElementById('editNotes').value = data.notes;
+
+                                $('#editShiftModal').modal('show'); // M? modal
+                            })
+                            .catch(error => {
+                                console.error('Error fetching shift details:', error);
+                            });
+                }
+            });
+
+        </script>
+        <script>
+            function openEditModal(weekDetailID, shiftID, overtimeHours, status, notes) {
+                document.getElementById('weekDetailID').value = weekDetailID;
+                document.getElementById('shiftSelect').value = shiftID;
+                document.getElementById('overtimeHours').value = overtimeHours;
+                document.getElementById('status').value = status;
+                document.getElementById('notes').value = notes;
+
+                $('#editShiftModal').modal('show');
+            }
+
+        </script>
+
     </body>
 </html>
