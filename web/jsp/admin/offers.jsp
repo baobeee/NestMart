@@ -21,9 +21,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
 
-        <title>NestMart - Categories</title>
+        <title>NestMart - Offers</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -32,6 +32,13 @@
                 margin-bottom: 20px;
                 width: 100%;
             }
+
+            .search-form {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+
             .search-input {
                 flex: 1;
                 height: 45px;
@@ -41,6 +48,7 @@
                 border-right: none;
                 font-size: 16px;
             }
+
             .search-button {
                 height: 45px;
                 width: 65px;
@@ -55,12 +63,13 @@
                 cursor: pointer;
                 margin-right: 15px;
             }
+
             .search-button i {
                 font-size: 20px;
             }
-            .search-button:hover {
-                background-color: #e0e0e0;
-            }
+
+
+
             .icon-container {
                 display: flex;
                 align-items: center;
@@ -85,20 +94,12 @@
                 background-color: #e0e0e0;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
-            .table-actions {
-                position: relative;
+            .btn-container {
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 5px;
+                gap: 10px; /* Khoảng cách giữa các nút */
             }
-            .table-actions {
-                display: flex;
-                gap: 5px;
-                justify-content: center;
-                align-items: center;
-            }
-            .table-actions .btn {
+
+            .btn {
                 background-color: transparent;
                 border: none;
                 cursor: pointer;
@@ -106,28 +107,92 @@
                 padding: 5px;
                 transition: background-color 0.3s, box-shadow 0.3s;
             }
-            .table-actions .btn-update {
+
+            .btn-update {
                 color: #007bff;
             }
-            .table-actions .btn-delete {
+
+            .btn-delete {
                 color: #dc3545;
             }
-            .table-actions .btn:hover {
+
+            .btn:hover {
                 background-color: #f0f0f0;
                 box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
             }
-            .table-actions .btn-update:hover {
+
+            .btn-update:hover {
                 color: #0056b3;
             }
-            .table-actions .btn-delete:hover {
+
+            .btn-delete:hover {
                 color: #c82333;
             }
+
             tr {
                 position: relative;
             }
             .table td {
                 vertical-align: middle; /* Center-align text vertically in table cells */
             }
+            .image-container {
+                position: relative;
+                display: inline-block;
+            }
+
+            .img-thumbnail {
+                display: block;
+            }
+
+            .image-count {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                background-color: rgba(0, 0, 0, 0.6);
+                color: white;
+                padding: 2px 6px;
+                border-radius: 50%;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            /*chuyentrang*/
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+            }
+
+            .pagination .page-item .page-link {
+                color: #282c3c;
+                background-color: #fff;
+                border: 1px solid #282c3c;
+                padding: 8px 16px;
+                margin: 0 4px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+            }
+
+            .pagination .page-item.active .page-link {
+                color: #fff;
+                background-color: #282c3c;
+                border-color: #282c3c;
+            }
+
+            .pagination .page-item .page-link:hover {
+                color: #fff;
+                background-color: #282c3c;
+                border-color: #282c3c;
+            }
+
+            .pagination .page-item.disabled .page-link {
+                color: #6c757d;
+                background-color: #fff;
+                border-color: #dee2e6;
+                cursor: not-allowed;
+            }
+
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Spring Web MVC project</title>
@@ -147,43 +212,37 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.htm">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="accounts.htm" >
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">User Accounts</span>
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="product.htm">
-                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Products</span>
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="brand.htm">
-                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brands</span>
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" href="category.htm">
-                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categories</span>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="categoryDetail.htm">
-                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Details</span>
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item ">
                             <a class="sidebar-link" href="discount.htm">
                                 <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                             </a>
@@ -201,11 +260,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="order.htm">
-                                <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                            </a>
-                        </li>
+
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="inventory.htm">
@@ -214,14 +269,8 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="feedback.htm">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
                                 <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="finacialTransactions.htm">
-                                <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
                             </a>
                         </li>
 
@@ -240,17 +289,7 @@
 
                     </ul>
 
-                    <div class="sidebar-cta">
-                        <div class="sidebar-cta-content">
-                            <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                            <div class="mb-3 text-sm">
-                                Are you looking for more components? Check out our premium version.
-                            </div>
-                            <div class="d-grid">
-                                <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </nav>
 
@@ -420,32 +459,40 @@
                     <div class="container mt-4">
                         <!-- Search and Buttons -->
                         <div class="search-container">
-                            <input type="text" class="form-control search-input" placeholder="Search...">
-                            <button class="btn search-button">
-                                <i class="align-middle" data-feather="search"></i>
-                            </button>
-                            <!-- Icon buttons for Export and Add -->
+                            <form action="${pageContext.request.contextPath}/admin/offers.htm" method="get" class="search-form">
+                                <input type="text" name="keyword" class="form-control search-input" placeholder="Search by Product Name or Discount Name..." value="${keyword}">
+                                <button type="submit" class="btn search-button">
+                                    <i class="align-middle" data-feather="search"></i>
+                                </button>
+                            </form>
+
                             <div class="icon-container">
                                 <button class="btn btn-export">
                                     <i data-feather="file-text"></i>
                                 </button>
-                                <!-- Update the Add button -->
-                                <button class="btn btn-add" onclick="window.location.href = '${pageContext.request.contextPath}/offersCreate.htm'">
+                                <button class="btn btn-add" onclick="window.location.href = '${pageContext.request.contextPath}/admin/offersCreate.htm'">
                                     <i data-feather="plus"></i>
                                 </button>
-
                             </div>
                         </div>
+
+                        <c:set var="suggestion" value="${closestMatch != null && !closestMatch.equalsIgnoreCase(keyword) ? closestMatch : null}" />
+
+                        <c:if test="${not empty closestMatch && !closestMatch.equalsIgnoreCase(keyword)}">
+                            <p>Do you mean <a href="${pageContext.request.contextPath}/admin/offers.htm?keyword=${closestMatch}">${closestMatch}</a>?</p>
+                        </c:if>
+
+
                         <table class="table table-hover my-0" id="accountTable">
                             <thead>
                                 <tr>
                                     <th>Offer ID</th>
                                     <th>Product Name</th>
                                     <th>Discount Name</th>
+                                    <th>Discount Type</th>
+                                    <th>Discount Value</th>
                                     <th>Offer Name</th>
                                     <th>Description</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
                                 </tr>
 
                             </thead>
@@ -455,18 +502,33 @@
                                         <td><c:out value="${offers.offerID}" /></td>
                                         <td><c:out value="${offers.productName}" /></td>
                                         <td><c:out value="${offers.discountName}" /></td>
+                                        <td><c:out value="${offers.discountType}" /></td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${offers.discountType == 'Discount of money'}">
+                                                    <c:out value="${offers.discountValue} $" />
+                                                </c:when>
+                                                <c:when test="${offers.discountType == '% Discount'}">
+                                                    <c:out value="${offers.discountValue}%" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:out value="N/A" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+
                                         <td><c:out value="${offers.offerName}" /></td>
                                         <td><c:out value="${offers.description}" /></td>
-                                        <td><c:out value="${offers.startDate}" /></td>
-                                        <td><c:out value="${offers.endDate}" /></td>
 
-                                        <td class="table-actions">
-                                            <a href="${pageContext.request.contextPath}/offersUpdate.htm?offersID=${offers.offerID}" class="btn btn-update" title="Edit">
-                                                <i data-feather="edit"></i>
-                                            </a>
-                                            <a href="${pageContext.request.contextPath}/offersDelete.htm?offersID=${offers.offerID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this offer?');">
-                                                <i data-feather="trash-2"></i>
-                                            </a>
+                                        <td>
+                                            <div class="btn-container">
+                                                <a href="${pageContext.request.contextPath}/admin/offersUpdate.htm?offersID=${offers.offerID}" class="btn btn-update" title="Edit">
+                                                    <i data-feather="edit"></i>
+                                                </a>
+                                                <a href="${pageContext.request.contextPath}/admin/offersDelete.htm?offersID=${offers.offerID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this offers?');">
+                                                    <i data-feather="trash-2"></i>
+                                                </a>
+                                            </div>
                                         </td>
 
                                     </tr>
@@ -478,39 +540,37 @@
                                 </c:if>
                             </tbody>
                         </table>
-                    </div>
-                </main>
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row text-muted">
-                            <div class="col-6 text-start">
-                                <p class="mb-0">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
-                                </p>
-                            </div>
-                            <div class="col-6 text-end">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                        <div class="pagination-container">
+
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                        <a class="page-link" href="?page=${currentPage - 1}&pageSize=${pageSize}" tabindex="-1">Previous</a>
                                     </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+
+                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                        <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                            <a class="page-link" href="?page=${i}&pageSize=${pageSize}">${i}</a>
+                                        </li>
+                                    </c:forEach>
+
+                                    <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                        <a class="page-link" href="?page=${currentPage + 1}&pageSize=${pageSize}">Next</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </nav>
                         </div>
                     </div>
-                </footer>
+                </main>
+
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
 
         <script src="admin/static/js/app.js"></script>
+        <script>
+                                                    feather.replace();
+        </script>
+
     </body>
 </html>

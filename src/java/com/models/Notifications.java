@@ -11,6 +11,8 @@ public class Notifications {
     private Date sendDate;
     private String customerName;
     private String employeeName;
+    private String notificationType;
+    private String status;
 
     public Notifications() {
     }
@@ -88,4 +90,19 @@ public class Notifications {
         this.employeeName = employeeName;
     }
     
+    public String getNotificationType() {
+        return notificationType;
+    }
+
+    public void setNotificationType(String notificationType) {
+        this.notificationType = notificationType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

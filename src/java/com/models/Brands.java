@@ -4,6 +4,7 @@ public class Brands {
     private int brandID;
     private String brandName;
     private String description;
+    private boolean hasProducts; // New field
 
     public Brands() {
         this.brandID = 0;
@@ -39,5 +40,13 @@ public class Brands {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isHasProducts() {
+        return hasProducts;
+    }
+
+    public void setHasProducts(boolean hasProducts) {
+        this.hasProducts = hasProducts;
     }
 }

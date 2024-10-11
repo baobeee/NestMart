@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,17 +16,16 @@
         <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="shortcut icon" href="../../admin/static/img/icons/icon-48x48.png" />
+        <link rel="shortcut icon" href="../assets/admin/static/img/icons/icon-48x48.png" />
         <link href="https://unpkg.com/feather-icons@latest/dist/feather.css" rel="stylesheet">
 
         <link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
+        <title>NestMart - Categories</title>
 
-        <title>NestMart - Products</title>
-
-        <link href="admin/static/css/app.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
                 display: flex;
@@ -32,6 +33,13 @@
                 margin-bottom: 20px;
                 width: 100%;
             }
+
+            .search-form {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+
             .search-input {
                 flex: 1;
                 height: 45px;
@@ -41,6 +49,7 @@
                 border-right: none;
                 font-size: 16px;
             }
+
             .search-button {
                 height: 45px;
                 width: 65px;
@@ -55,12 +64,15 @@
                 cursor: pointer;
                 margin-right: 15px;
             }
+
             .search-button i {
                 font-size: 20px;
             }
+
             .search-button:hover {
                 background-color: #e0e0e0;
             }
+
             .icon-container {
                 display: flex;
                 align-items: center;
@@ -126,27 +138,109 @@
             .table td {
                 vertical-align: middle; /* Center-align text vertically in table cells */
             }
-            .product-image {
-                width: 80px;  /* Thay đổi kích thước theo ý muốn */
-                height: 80px; /* Thay đổi kích thước theo ý muốn */
-                object-fit: cover; /* Đảm bảo hình ảnh không bị méo, cắt bỏ phần thừa */
-                display: block;
-                margin: 0 auto; /* Căn giữa hình ảnh trong ô bảng */
+          .image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.img-thumbnail {
+    display: block;
+}
+
+.image-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+            /*chuyentrang*/
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
             }
 
-            .image-container {
-                display: flex;
-                justify-content: center; /* Căn giữa theo chiều ngang */
-                align-items: center;     /* Căn giữa theo chiều dọc */
-                width: 80px;            /* Kích thước khung, nên giống kích thước của hình ảnh */
-                height: 80px;           /* Kích thước khung, nên giống kích thước của hình ảnh */
-                border: 1px solid #ddd;  /* Thêm khung nếu cần */
-                padding: 5px;            /* Khoảng cách giữa hình ảnh và khung */
-                box-sizing: border-box;  /* Đảm bảo padding và border được tính vào kích thước */
+            .pagination .page-item .page-link {
+                color: #282c3c;
+                background-color: #fff;
+                border: 1px solid #282c3c;
+                padding: 8px 16px;
+                margin: 0 4px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
             }
+
+            .pagination .page-item.active .page-link {
+                color: #fff;
+                background-color: #282c3c;
+                border-color: #282c3c;
+            }
+
+            .pagination .page-item .page-link:hover {
+                color: #fff;
+                background-color: #282c3c;
+                border-color: #282c3c;
+            }
+
+            .pagination .page-item.disabled .page-link {
+                color: #6c757d;
+                background-color: #fff;
+                border-color: #dee2e6;
+                cursor: not-allowed;
+            }
+          /* Chỉ báo không thể xóa */
+.cannot-delete-indicator {
+    background-color: #ffcccb; /* Màu nền đỏ nhạt */
+    color: #d32f2f; /* Màu chữ đỏ đậm */
+    padding: 8px 2px;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: not-allowed;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #d32f2f; /* Viền đỏ */
+}
+
+/* Icon styles */
+.btn i, .cannot-delete-indicator i {
+    margin-right: 5px;
+}
+
+/* Tooltip styles */
+.btn, .cannot-delete-indicator {
+    position: relative;
+}
+
+.btn::after, .cannot-delete-indicator::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.btn:hover::after, .cannot-delete-indicator:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
     </head>
 
     <body>
@@ -162,44 +256,38 @@
                             Pages
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.htm">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="accounts.htm" >
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">User Accounts</span>
+                           <li class="sidebar-item">
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                             </a>
                         </li>
 
                         <li class="sidebar-item active">
-                            <a class="sidebar-link" href="product.htm">
-                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Products</span>
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="brand.htm">
-                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brands</span>
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" href="category.htm">
-                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categories</span>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="categoryDetail.htm">
-                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Details</span>
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item ">
                             <a class="sidebar-link" href="discount.htm">
                                 <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                             </a>
@@ -217,11 +305,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="order.htm">
-                                <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                            </a>
-                        </li>
+
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="inventory.htm">
@@ -230,14 +314,8 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="feedback.htm">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
                                 <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="finacialTransactions.htm">
-                                <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
                             </a>
                         </li>
 
@@ -252,19 +330,12 @@
                                 <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
                             </a>
                         </li>
+
+
+
                     </ul>
 
-                    <div class="sidebar-cta">
-                        <div class="sidebar-cta-content">
-                            <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                            <div class="mb-3 text-sm">
-                                Are you looking for more components? Check out our premium version.
-                            </div>
-                            <div class="d-grid">
-                                <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </nav>
 
@@ -336,9 +407,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="dropdown-menu-footer">
-                                        <a href="#" class="text-muted">Show all notifications</a>
-                                    </div>
+                                    
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -433,23 +502,40 @@
                 <main class="content">
                     <div class="container mt-4">
                         <!-- Search and Buttons -->
+                        <!-- Search and Buttons -->
                         <div class="search-container">
-                            <input type="text" class="form-control search-input" placeholder="Search...">
-                            <button class="btn search-button">
-                                <i class="align-middle" data-feather="search"></i>
-                            </button>
+                            <form action="../admin/products.htm" method="get" class="search-form">
+                                <!-- Input for search criteria -->
+                                <input type="text" name="keyword" class="form-control search-input" placeholder="Search by name, ID, or category..." value="${keyword}">
+                                <button type="submit" class="btn search-button">
+                                    <i class="align-middle" data-feather="search"></i>
+                                </button>
+                            </form>
+
                             <!-- Icon buttons for Export and Add -->
                             <div class="icon-container">
+                                <!-- Export button -->
                                 <button class="btn btn-export">
                                     <i data-feather="file-text"></i>
                                 </button>
-                                <!-- Update the Add button -->
-                                <button class="btn btn-add" onclick="window.location.href = '${pageContext.request.contextPath}/productCreate.htm'">
+                                <!-- Add button -->
+                                <button class="btn btn-add" onclick="window.location.href = 'productCreate.htm'">
                                     <i data-feather="plus"></i>
                                 </button>
-
                             </div>
                         </div>
+
+                        <c:set var="suggestion" value="${closestMatch != null && !closestMatch.equalsIgnoreCase(keyword) ? closestMatch : null}" />
+
+                        <!-- Display suggestion if it exists -->
+                        <c:if test="${not empty closestMatch && !closestMatch.equalsIgnoreCase(keyword)}">
+                            <p>Did you mean <a href="../admin/products.htm?keyword=${closestMatch}">${closestMatch}</a> ?</p>
+                        </c:if>
+
+                        <!-- Display message if no suggestion and keyword is not empty -->
+                        <c:if test="${empty closestMatch && not empty keyword}">
+                            <p>Không có kết quả phù hợp cho từ khóa "${keyword}".</p>
+                        </c:if>
                         <table class="table table-hover my-0" id="productTable">
                             <thead>
                                 <tr>
@@ -462,7 +548,6 @@
                                     <th>Image</th>
                                     <th>Date Added</th>
                                     <th>Discount</th>
-                                    <th>Average Rating</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -474,41 +559,80 @@
                                         <td><c:out value="${brandNames[product.brandID]}" /></td>
                                         <td><c:out value="${product.productName}" /></td>
                                         <td><c:out value="${product.productDescription}" /></td>
-                                        <td><c:out value="${product.unitPrice}" /></td>
+                                        <td><fmt:formatNumber value="${product.unitPrice}" type="number" groupingUsed="true" minFractionDigits="0" maxFractionDigits="2" /></td>
                                         <td>
-                                            <div class="image-container">
-                                                <img 
-                                                    src="${pageContext.request.contextPath}/assets/admin/images/uploads/products/${product.image}" 
-                                                    alt="Product Image" 
-                                                    class="product-image"
-                                                    loading="lazy">
-                                            </div>
-                                        </td>
-
-                                        <td style="white-space: nowrap;"><c:out value="${product.dateAdded}" /></td>
-                                        <td><c:out value="${product.discount}" /></td>
-                                        <td><c:out value="${product.averageRating}" /></td>
-                                        <td>
-                                            <div class="btn-container">
-                                                <a href="${pageContext.request.contextPath}/productUpdate.htm?productID=${product.productID}" class="btn btn-update" title="Edit">
-                                                    <i data-feather="edit"></i>
-                                                </a>
-                                                <a href="${pageContext.request.contextPath}/productDelete.htm?productID=${product.productID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this product?');">
-                                                    <i data-feather="trash-2"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-
+    <c:choose>
+        <c:when test="${not empty product.images}">
+            <c:set var="imageCount" value="${fn:length(product.images)}" />
+            <c:forEach var="image" items="${product.images}" varStatus="status">
+                <c:if test="${status.index == 0}">
+                    <!-- Container for image and count -->
+                    <div class="image-container">
+                        <!-- Display the first image -->
+                        <img src="../assets/admin/images/uploads/products/${image.images}"
+                             alt="Product Image"
+                             class="img-thumbnail"
+                             loading="lazy">
+                        <!-- Check if there are more images and display the plus sign -->
+                        <c:if test="${imageCount > 1}">
+                            <span class="image-count">+${imageCount - 1}</span>
+                        </c:if>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            No image available
+        </c:otherwise>
+    </c:choose>
+</td>
+    
+                                        <td><fmt:formatDate value="${product.dateAdded}" pattern="yyyy-MM-dd" /></td>
+                                        <td><fmt:formatNumber value="${product.discount}" type="number" minFractionDigits="2" maxFractionDigits="2" /></td>
+                                       <td>
+                    <div class="btn-container">
+                        <a href="../admin/productUpdate.htm?productID=${product.productID}" class="btn btn-update" title="Edit">
+                            <i data-feather="edit-2"></i>
+                        </a>
+                        <c:choose>
+                            <c:when test="${canDeleteMap[product.productID]}">
+                                <a href="../admin/productDelete.htm?productID=${product.productID}" 
+                                   class="btn btn-delete" 
+                                   title="Delete" 
+                                   onclick="return confirm('Are you sure you want to delete this product?');">
+                                    <i data-feather="trash-2"></i>
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="cannot-delete-indicator" title="Product has been sold and cannot be deleted">Product was sold</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </td>
                                     </tr>
                                 </c:forEach>
-                                <c:if test="${empty listProducts}">
-                                    <tr>
-                                        <td colspan="11">No products found.</td>
-                                    </tr>
-                                </c:if>
                             </tbody>
                         </table>
+                        <div class="pagination-container">
 
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                        <a class="page-link" href="?page=${currentPage - 1}&pageSize=${pageSize}" tabindex="-1">Previous</a>
+                                    </li>
+
+                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                        <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                            <a class="page-link" href="?page=${i}&pageSize=${pageSize}">${i}</a>
+                                        </li>
+                                    </c:forEach>
+
+                                    <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                        <a class="page-link" href="?page=${currentPage + 1}&pageSize=${pageSize}">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </main>
                 <footer class="footer">
@@ -540,8 +664,46 @@
                 </footer>
             </div>
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
+ <script>
+        feather.replace();
+    </script>
+        <script>
+                                    function formatNumber(value) {
+                                        // Tách phần nguyên và phần thập phân
+                                        let parts = value.split('.');
+                                        let integerPart = parts[0].replace(/\D/g, '');
+                                        let decimalPart = parts[1] || '';
 
-        <script src="admin/static/js/app.js"></script>
+                                        // Định dạng phần nguyên
+                                        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                                        // Giới hạn phần thập phân tối đa 3 chữ số
+                                        decimalPart = decimalPart.slice(0, 3);
+
+                                        // Kết hợp phần nguyên và phần thập phân
+                                        return decimalPart ? integerPart + '.' + decimalPart : integerPart;
+                                    }
+
+                                    function onInputChange(event) {
+                                        let input = event.target;
+                                        let cursorPosition = input.selectionStart;
+                                        let oldValue = input.value;
+                                        let newValue = formatNumber(input.value);
+
+                                        input.value = newValue;
+
+                                        // Điều chỉnh vị trí con trỏ
+                                        let cursorOffset = newValue.length - oldValue.length;
+                                        input.setSelectionRange(cursorPosition + cursorOffset, cursorPosition + cursorOffset);
+                                    }
+
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        let unitPriceInput = document.getElementById("unitPrice");
+                                        unitPriceInput.addEventListener("input", onInputChange);
+                                    });
+        </script>
+
+    <script src="../assets/admin/js/app.js"></script>
     </body>
 </html>

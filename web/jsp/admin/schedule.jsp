@@ -22,9 +22,12 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
 
-        <title>NestMart - Work Schedule</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/admin/css/app.css" />
+        <title>NestMart - Accounts</title>
+
+        <link rel="stylesheet" href="../assets/admin/css/app.css" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <style>
             .search-container {
                 display: flex;
@@ -65,7 +68,6 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                margin-left: auto; /* Đẩy các nút về bên phải */
             }
             .icon-container .btn {
                 background-color: #f1f1f1;
@@ -80,6 +82,7 @@
                 cursor: pointer;
                 font-size: 24px;
                 transition: background-color 0.3s, box-shadow 0.3s;
+                margin-top: -22px;
             }
             .icon-container .btn:hover {
                 background-color: #e0e0e0;
@@ -91,12 +94,6 @@
                 justify-content: center;
                 align-items: center;
                 gap: 5px;
-            }
-            .table-actions {
-                display: flex;
-                gap: 5px;
-                justify-content: center;
-                align-items: center;
             }
             .table-actions .btn {
                 background-color: transparent;
@@ -130,13 +127,23 @@
             }
         </style>
     </head>
-
     <body>
         <c:if test="${param.sessionExpired}">
             <div style="color: red;">
                 Your session has expired. Please log in again.
             </div>
         </c:if>
+        <c:if test="${not empty error}">
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Hiển thị lỗi trong modal
+                    document.getElementById('errorAlert').textContent = "${error}";
+                    document.getElementById('errorAlert').style.display = 'block';
+                    $('#createScheduleModal').modal('show'); // Mở lại modal khi có lỗi
+                });
+            </script>
+        </c:if>
+
         <div class="wrapper">
             <ul class="sidebar-nav">
                 <a class="sidebar-brand" href="index.html">
@@ -146,98 +153,80 @@
                     Pages
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
+                 <li class="sidebar-item">
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="showaccount.htm" >
-                        <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
+                            </a>
+                        </li>
 
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-in.html">
-                        <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="brand.htm">
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-up.html">
-                        <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item  ">
-                    <a class="sidebar-link" href="pages-blank.html">
-                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categoryDetail.htm">
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-buttons.html">
-                        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item ">
+                            <a class="sidebar-link" href="discount.htm">
+                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
-                        <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="offers.htm">
+                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
+                            </a>
+                        </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
-                        <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/workshedule.htm">
-                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
-                    </a>
-                </li>
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="schedule.htm">
+                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                            </a>
+                        </li>
 
 
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="inventory.htm">
+                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="salary.htm">
+                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="notifications.htm">
+                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
+                            </a>
+                        </li>
             </ul>
 
             <div class="main">
@@ -245,31 +234,24 @@
                     <a class="sidebar-toggle js-sidebar-toggle">
                         <i class="hamburger align-self-center"></i>
                     </a>
-
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav navbar-align">
-                            <!-- Các mục khác của navbar... -->
-
                             <li class="nav-item dropdown">
-                                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                                    <i class="align-middle" data-feather="settings"></i>
-                                </a>
-
                                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                    <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="User Avatar" />
                                     <span class="text-dark">${sessionScope.email}</span>
-
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.htm">Logout</a>
-
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="accounts-management.html"><i class="align-middle me-1" data-feather="users"></i> Accounts Management</a>
-                                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/logout"><i class="align-middle me-1" data-feather="log-out"></i> Log out</a>
-                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="../account/accountInformation.htm">
+                                        <i class="fa fa-user"></i> Account Information
+                                    </a>
+                                    <a class="dropdown-item" href="../account/changePassword.htm">
+                                        <i class="fa fa-user"></i> Change Password
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="../logout.htm">
+                                        <i class="align-middle me-1" data-feather="log-out"></i> Log out
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -278,105 +260,193 @@
                     <div class="container mt-4">
                         <!-- Search and Buttons -->
                         <div class="search-container">
-                            <input type="text" class="form-control search-input" placeholder="Search...">
-                            <button class="btn search-button">
-                                <i class="align-middle" data-feather="search"></i>
-                            </button>
-                            <!-- Icon buttons for Export and Add -->
+
                             <div class="icon-container">
-                                <button class="btn btn-export">
-                                    <i data-feather="file-text"></i>
-                                </button>
-                                <button class="btn btn-add" onclick="window.location.href = '<c:url value='/admin/scheduleCreate.htm'/>'">
+                                <button type="button" class="btn btn-add" data-toggle="modal" data-target="#createScheduleModal">
                                     <i data-feather="plus"></i>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Alerts -->
-                        <c:if test="${not empty error}">
-                            <div class="alert alert-danger">
-                                <c:out value="${error}" />
-                            </div>
-                        </c:if>
-                        <c:if test="${not empty success}">
-                            <div class="alert alert-success">
-                                <c:out value="${success}" />
-                            </div>
-                        </c:if>
-                        <a href="${pageContext.request.contextPath}/admin/assignShift.htm" class="btn btn-primary mb-3">Assign Shift</a>
-
                         <table class="table table-hover my-0" id="scheduleTable">
                             <thead>
                                 <tr>
-                                    <th>Week Schedule ID</th>
                                     <th>Week Start Date</th>
                                     <th>Week End Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="weekSchedule" items="${weekSchedules}">
+                                <c:forEach var="schedule" items="${weekSchedules}">
                                     <tr>
-                                        <td><c:out value="${weekSchedule.weekScheduleID}" /></td>
-                                        <td><fmt:formatDate value="${weekSchedule.weekStartDate}" pattern="yyyy/MM/dd" /></td>
-                                        <td><fmt:formatDate value="${weekSchedule.weekEndDate}" pattern="yyyy/MM/dd" /></td>
-                                        <td class="table-actions">
-                                            <a href="${pageContext.request.contextPath}/admin/scheduleDetails.htm?weekScheduleID=${weekSchedule.weekScheduleID}" class="btn btn-view" title="View Details">
-                                                <i data-feather="eye"></i>
-                                            </a>
-                                            <a href="${pageContext.request.contextPath}/admin/weekScheduleDelete.htm?weekScheduleID=${weekSchedule.weekScheduleID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this schedule?');">
-                                                <i data-feather="trash-2"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                <c:if test="${empty weekSchedules}">
-                                    <tr>
-                                        <td colspan="4">No week schedule found.</td>
-                                    </tr>
-                                </c:if>
+                                <input type="hidden" name="weekScheduleID" value="${schedule.weekScheduleID}">
+                                <td>${schedule.weekStartDate}</td>
+                                <td>${schedule.weekEndDate}</td>
+                                <td class="table-actions">
+                                    <a href="../admin/scheduleDetails.htm?weekScheduleID=${schedule.weekScheduleID}" class="btn btn-view" title="View Details">
+                                        <i data-feather="eye"></i>
+                                    </a>
+
+                                    <form action="../admin/weekScheduleDelete.htm" method="GET" style="display:inline;">
+                                        <input type="hidden" name="weekScheduleID" value="${schedule.weekScheduleID}">
+                                        <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this schedule?');" title="Delete">
+                                            <i data-feather="trash-2"></i>
+                                        </button>
+                                    </form>
+
+                                </td>
+                                </tr>
+                            </c:forEach>
+                            <c:if test="${empty weekSchedules}">
+                                <tr>
+                                    <td colspan="4">No week schedule found.</td>
+                                </tr>
+                            </c:if>
                             </tbody>
                         </table>
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center mt-3">
+                            <c:if test="${totalPages > 1}">
+                                <c:forEach var="i" begin="1" end="${totalPages}">
+                                    <li class="page-item <c:if test='${currentPage == i}'>active</c:if>">
+                                        <a class="page-link" href="?page=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+                            </c:if>
+                        </ul>
+                    </nav>
+
                 </main>
 
-                <footer class="footer">
-                    <div class="container-fluid">
-                        <div class="row text-muted">
-                            <div class="col-6 text-start">
-                                <p class="mb-0">
-                                    <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Nestmart</strong></a> &copy;
-                                </p>
+                <!--                tạo tuần làm việc-->
+                <div class="modal fade" id="createScheduleModal" tabindex="-1" role="dialog" aria-labelledby="createScheduleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="createScheduleModalLabel">Create Week Schedule</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="col-6 text-end">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-                                    </li>
-                                </ul>
+                            <div class="modal-body">
+                                <form action="../admin/weekScheduleCreate.htm" method="POST">
+                                    <div class="alert alert-danger" id="errorAlert" style="display:none;"></div>
+                                    <div class="form-group">
+                                        <label for="weekStartDate">Week Start Date</label>
+                                        <input type="date" class="form-control" id="weekStartDate" name="weekStartDate" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="weekEndDate">Week End Date</label>
+                                        <input type="date" class="form-control" id="weekEndDate" name="weekEndDate" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </footer>
+                </div>
+
+                <!-- Modal Assign Shift -->
+                <div class="modal fade" id="assignShiftModal" tabindex="-1" role="dialog" aria-labelledby="assignShiftModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="assignShiftModalLabel">Assign Shift to Employee</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="assignShiftForm" action="../admin/assignShift.htm" method="POST">
+                                    <!-- Select Week -->
+                                    <div class="form-group">
+                                        <label for="weekScheduleID">Select Week Schedule</label>
+                                        <select class="form-control" id="weekScheduleID" name="weekScheduleID" required>
+                                            <c:forEach var="schedule" items="${weekSchedules}">
+                                                <option value="${schedule.weekScheduleID}">${schedule.weekStartDate} - ${schedule.weekEndDate}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <!-- Select Employee -->
+                                    <div class="form-group">
+                                        <label for="employeeID">Select Employee</label>
+                                        <select class="form-control" id="employeeID" name="employeeID" required>
+                                            <c:forEach var="employee" items="${employees}">
+                                                <option value="${employee.employeeID}">${employee.fullName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <!-- Select Day of Week -->
+                                    <div class="form-group">
+                                        <label for="dayOfWeekID">Select Day</label>
+                                        <select class="form-control" id="dayOfWeekID" name="dayOfWeekID" required>
+                                            <c:forEach var="day" items="${daysOfWeek}">
+                                                <option value="${day.dayOfWeekID}">${day.dayName}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <!-- Select Shift -->
+                                    <div class="form-group">
+                                        <label for="shiftID">Select Shift</label>
+                                        <select class="form-control" id="shiftID" name="shiftID" required>
+                                            <c:forEach var="shift" items="${shifts}">
+                                                <option value="${shift.shiftID}">${shift.shiftName} (${shift.startTime} - ${shift.endTime})</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Optional Fields for Overtime and Notes -->
+                                    <div class="form-group">
+                                        <label for="overtime">Overtime (hours)</label>
+                                        <input type="number" class="form-control" id="overtime" name="overtime" min="0" step="0.5" placeholder="Enter overtime hours (optional)">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="note">Notes</label>
+                                        <textarea class="form-control" id="note" name="note" rows="3" placeholder="Enter any additional notes (optional)"></textarea>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="btn btn-primary">Assign Shift</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
-        <script src="${pageContext.request.contextPath}/asset/admin/js/app.js"></script>
-        <script>
-                                                feather.replace();
-        </script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
+
+            <script src="../asset/admin/js/app.js"></script>
+            <script>
+                                            feather.replace();
+            </script>
+            <script>
+                function openAssignShiftModal(weekDetailsID) {
+                    $('#weekDetailsID').val(weekDetailsID);
+                    $('#assignShiftModal').modal('show');
+                }
+            </script><script>
+                function openAssignShiftModal(weekDetailsID) {
+                    // Gán giá trị weekDetailsID vào input ẩn (nếu cần)
+                    document.getElementById('weekDetailsID').value = weekDetailsID;
+
+                    // Hiển thị modal phân ca
+                    var assignShiftModal = new bootstrap.Modal(document.getElementById('assignShiftModal'));
+                    assignShiftModal.show();
+                }
+            </script>
     </body>
 </html>

@@ -23,7 +23,7 @@
 
         <title>NestMart - Categories</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -141,103 +141,91 @@
                         <span class="align-middle">Nestmart</span>
                     </a>
 
-                    <ul class="sidebar-nav">
+                       <ul class="sidebar-nav">
                         <li class="sidebar-header">
                             Pages
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.html">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+                      
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="account.htm" >
+                        <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
+
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="products.htm">
+                        <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="brand.htm">
+                        <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="categories.htm">
+                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="categoryDetail.htm">
+                        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="discount.htm">
+                        <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="offers.htm">
+                        <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="schedule.htm">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                    </a>
+                </li>
+
+                
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="inventory.htm">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
+                    </a>
+                </li>
+
+      <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="accounts-management.html">
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Accounts Management</span>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="salary.htm">
+                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
+                    </a>
+                </li>
 
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="notifications.htm">
+                        <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-in.html">
-                                <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
-                            </a>
-                        </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-up.html">
-                                <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
-                            </a>
-                        </li>
+                    </ul>
 
-                        <li class="sidebar-item ">
-                            <a class="sidebar-link" href="pages-blank.html">
-                                <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-header">
-                            Tools & Components
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-buttons.html">
-                                <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-forms.html">
-                                <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-cards.html">
-                                <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-tyography.html">
-                                <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/icons-feather.html">
-                                <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-header">
-                            Plugins & Addons
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/charts-chartjs.html">
-                                <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/maps-google.html">
-                                <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-                            </a>
-                        </li>
-                    </ul>   
-
-                    <div class="sidebar-cta">
-                        <div class="sidebar-cta-content">
-                            <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                            <div class="mb-3 text-sm">
-                                Are you looking for more components? Check out our premium version.
-                            </div>
-                            <div class="d-grid">
-                                <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </nav>
 
@@ -424,7 +412,7 @@
                             </div>
                         </div>
                         <table class="table table-hover my-0" id="discountTable">
-                            <form action="${pageContext.request.contextPath}/discountUpdate.htm" method="post" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/admin/discountUpdate.htm" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="discountID" value="${discount.discountID}" />
 
                                 <div class="form-group">
@@ -432,15 +420,7 @@
                                     <input type="text" class="form-control" id="discountName" name="discountName" value="${discount.discountName}" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="discountType">Discount Type:</label>
-                                    <input type="text" class="form-control" id="discountType" name="discountType" value="${discount.discountType}" required>
-                                </div>
-                                <div class="form-group">
-                                        <label for="discountValue">Discount Value:</label>
-                                        <input type="number" class="form-control" id="discountValue" name="discountValue"  value="${discount.discountValue}" step="0.01" required>
-                                    </div>
-
+                                
                                 <div class="form-group">
                                     <label for="description">Description:</label>
                                     <textarea class="form-control" id="description" name="description" rows="4" required>${discount.description}</textarea>
@@ -454,10 +434,13 @@
                                 <div class="form-group">
                                     <label for="endDate">End Date:</label>
                                     <input type="date" class="form-control" id="endDate" name="endDate" value="${discount.endDate}" required>
+                                    <c:if test="${not empty error}">
+                                            <span class="text-danger">${error}</span> 
+                                        </c:if>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="image">Image:</label>
+                                    <label for="image">Current Image:</label>
                                     <c:if test="${not empty discount.image}">
                                         <img src="${pageContext.request.contextPath}/assets/admin/images/uploads/discount/${discount.image}" alt="Current Image" class="img-thumbnail mb-2" style="max-width: 200px;">
                                     </c:if>
@@ -465,7 +448,7 @@
                                 </div>
 
                                 <button type="submit" id="updateDiscountButton" class="btn btn-primary">Update Discount</button>
-                                <a href="${pageContext.request.contextPath}/discounts.htm" class="btn btn-secondary">Cancel</a>
+                                <a href="${pageContext.request.contextPath}/admin/discount.htm" class="btn btn-secondary">Cancel</a>
                             </form>
 
                             <!-- Example of using c:if to show a message -->
@@ -524,4 +507,7 @@
 
         <script src="admin/static/js/app.js"></script>
     </body>
+    <script>
+           feather.replace();
+    </script>
 </html>

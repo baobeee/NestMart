@@ -22,7 +22,7 @@
 
         <title>NestMart - Inventory</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link href="../assets/admin/css/app.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -140,44 +140,40 @@
                     Pages
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.htm">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
 
+              
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="accounts.htm" >
-                        <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">User Accounts</span>
+                    <a class="sidebar-link" href="account.htm" >
+                        <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="product.htm">
-                        <i class="align-middle" data-feather="box"></i> <span class="align-middle">Products</span>
+                    <a class="sidebar-link" href="products.htm">
+                        <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="brand.htm">
-                        <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brands</span>
+                        <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item  ">
-                    <a class="sidebar-link" href="category.htm">
-                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categories</span>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="categories.htm">
+                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="categoryDetail.htm">
-                        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Details</span>
+                        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item ">
                     <a class="sidebar-link" href="discount.htm">
                         <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                     </a>
@@ -195,11 +191,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="order.htm">
-                        <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                    </a>
-                </li>
+                
 
                 <li class="sidebar-item active">
                     <a class="sidebar-link" href="inventory.htm">
@@ -207,17 +199,11 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="feedback.htm">
-                        <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="finacialTransactions.htm">
-                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
-                    </a>
-                </li>
+      <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
+                            </a>
+                        </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="salary.htm">
@@ -435,6 +421,7 @@
                                     <th>Product Name</th>
                                     <th>Quantity</th>
                                     <th>Last Updated</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -445,18 +432,13 @@
                                         <td><c:out value="${inventory.quantity}" /></td>
                                         <td><c:out value="${inventory.formattedDateTime}" /></td>
                                         <td class="table-actions">
-                                            <a href="${pageContext.request.contextPath}/updateInventory.htm?productID=${inventory.productID}" class="btn btn-update" title="Edit">
+                                            <a href="${pageContext.request.contextPath}/admin/updateInventory.htm?productID=${inventory.productID}" class="btn btn-update" title="Edit">
                                                 <i data-feather="edit"></i>
                                             </a>
-                                            <a href="${pageContext.request.contextPath}/deleteInventory.htm?productID=${inventory.productID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this inventory?');">
+                                            <a href="${pageContext.request.contextPath}/admin/deleteInventory.htm?productID=${inventory.productID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this inventory?');">
                                                 <i data-feather="trash-2"></i>
                                             </a>
                                         </td>
-
-
-
-
-
                                     </tr>
                                 </c:forEach>
                                 <c:if test="${empty inventoryList}">
@@ -499,6 +481,9 @@
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
 
-        <script src="admin/static/js/app.js"></script>
+        <script>
+            feather.replace();
+        </script>
+        <script src="../assets/admin/js/app.js"></script>
     </body>
 </html>

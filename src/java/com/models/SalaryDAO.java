@@ -4,6 +4,7 @@
  */
 package com.models;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -11,11 +12,27 @@ import java.util.List;
  * @author Win10
  */
 public interface SalaryDAO {
-    void save(Salary salary);
-    Salary findById(int salaryID);
-    void update(Salary salary);
-    void delete(int salaryID);
-    List<Salary> getAllSalaries();
-    List<Salary> getSalariesByAccountId(int accountID);
+
+    public boolean exists(Salary salary);
+
+    public void updateSalaryAfterShiftChange(int accountID, int weekScheduleID, BigDecimal newTotalSalary);
+
+    public BigDecimal calculateNewSalary(int accountID, int shiftID);
+
+    public BigDecimal calculateTotalSalaryByWeek(int weekScheduleID);
+
+    public List<EmployeeSalaryDTO> findSalariesByWeek(int weekScheduleID);
+
+    public List<WeekSalaryDTO> calculateWeeklySalaries();
+
+    public List<EmployeeSalaryDTO> calculateSalariesByWeek(int weekScheduleID);
+
+    public List<EmployeeSalaryDTO> findSalariesWithHoursByWeek(int weekScheduleID);
+
+    public List<EmployeeSalaryDTO> findTotalSalary(int weekScheduleID);
+
+//    public List<WeekSalaryDTO> getPagedSalaries(int page, int pageSize);
+//
+//    public int getTotalSalaries();
 
 }

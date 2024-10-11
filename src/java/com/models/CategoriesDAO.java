@@ -16,6 +16,12 @@ public interface CategoriesDAO {
     void deleteById(int id);
         String getCategoryNameById(int id);
     Map<Integer, String> getCategoryNames(List<Integer> categoryIds);
+    List<Categories> findPaginated(int page, int pageSize);
+      List<Categories> searchByKeyword(String keyword);
 
-
+    String findClosestMatch(String keyword);
+               int levenshteinDistance(String a, String b);
+    int getTotalCategories();
 }
+
+

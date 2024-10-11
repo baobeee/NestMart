@@ -23,7 +23,7 @@
 
         <title>NestMart - Categories</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
             .search-container {
@@ -146,85 +146,81 @@
                             Pages
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.html">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="accounts-management.html">
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Accounts Management</span>
+                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="account.htm" >
+                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-in.html">
-                                <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
+                            <a class="sidebar-link" href="products.htm">
+                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="pages-sign-up.html">
-                                <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Sign Up</span>
+                            <a class="sidebar-link" href="brand.htm">
+                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categories.htm">
+                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="categoryDetail.htm">
+                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item ">
-                            <a class="sidebar-link" href="pages-blank.html">
-                                <i class="align-middle" data-feather="book"></i> <span class="align-middle">Blank</span>
+                            <a class="sidebar-link" href="discount.htm">
+                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-header">
-                            Tools & Components
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-buttons.html">
-                                <i class="align-middle" data-feather="square"></i> <span class="align-middle">Buttons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-forms.html">
-                                <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="offers.htm">
+                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-cards.html">
-                                <i class="align-middle" data-feather="grid"></i> <span class="align-middle">Cards</span>
+                            <a class="sidebar-link" href="schedule.htm">
+                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="inventory.htm">
+                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/ui-tyography.html">
-                                <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
+                                <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/icons-feather.html">
-                                <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-header">
-                            Plugins & Addons
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/charts-chartjs.html">
-                                <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
+                            <a class="sidebar-link" href="salary.htm">
+                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/static/maps-google.html">
-                                <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
+                            <a class="sidebar-link" href="notifications.htm">
+                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
                             </a>
                         </li>
+
                     </ul>   
 
                     <div class="sidebar-cta">
@@ -423,7 +419,7 @@
 
                             </div>
                         </div>
-                        <form action="${pageContext.request.contextPath}/offersUpdate.htm" method="post">
+                        <form action="${pageContext.request.contextPath}/admin/offersUpdate.htm" method="post">
                             <input type="hidden" name="offerID" value="${offers.offerID}" />
 
                             <table class="table table-hover my-0" id="accountTable">
@@ -431,11 +427,7 @@
                                     <td>
                                         <div class="form-group">
                                             <label for="productID">Product ID:</label>
-                                            <select class="form-control" id="productID" name="productID" required>
-                                                    <c:forEach var="products" items="${listProducts}">
-                                                        <option value="${products.productID}">${products.productName}</option>
-                                                    </c:forEach>
-                                                </select>
+                                            <input type="text" class="form-control" id="productID" name="productID" value="${offers.productID}" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -443,14 +435,31 @@
                                     <td>
                                         <div class="form-group">
                                             <label for="discountID">Discount ID:</label>
-                                             <select class="form-control" id="discountID" name="discountID" required>
-                                                    <c:forEach var="discount" items="${listDiscount}">
-                                                        <option value="${discount.discountID}">${discount.discountName}</option>
-                                                    </c:forEach>
-                                                </select>
+                                            <input type="text" class="form-control" id="discountID" name="discountID" value="${offers.discountID}" readonly>
                                         </div>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label for="discountType">Discount Type:</label>
+                                            <select class="form-control" id="discountType" name="discountType" required>
+                                                <option value="Discount of money" ${offers.discountType == 'Discount of money' ? 'selected' : ''}>Discount of money</option>
+                                                <option value="% Discount" ${offers.discountType == '% Discount' ? 'selected' : ''}>% Discount</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label for="discountValue">Discount Value:</label>
+                                            <input type="number" class="form-control" id="discountValue" name="discountValue" value="${offers.discountValue}" step="0.01" required>
+                                        </div>
+                                    </td>
+                                </tr>
+
                                 <tr>
                                     <td>
                                         <div class="form-group">
@@ -467,22 +476,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-group">
-                                            <label for="startDate">Start Date:</label>
-                                            <input type="date" class="form-control" id="startDate" name="startDate" value="${offers.startDate}" required>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-group">
-                                            <label for="endDate">End Date:</label>
-                                            <input type="date" class="form-control" id="endDate" name="endDate" value="${offers.endDate}" required>
-                                        </div>
-                                    </td>
-                                </tr>
+
                                 <tr>
                                     <td>
                                         <button type="submit" id="updateOfferButton" class="btn btn-primary">Update Offer</button>
@@ -527,4 +521,7 @@
 
         <script src="admin/static/js/app.js"></script>
     </body>
+    <script>
+                                    feather.replace();
+    </script>
 </html>

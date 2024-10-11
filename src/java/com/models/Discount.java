@@ -4,6 +4,7 @@
  */
 package com.models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -14,8 +15,6 @@ public class Discount {
 
     private int discountID;
     private String discountName;
-    private String discountType;
-    private Float discountValue;
     private String description;
     private Date startDate;
     private Date endDate;
@@ -24,8 +23,6 @@ public class Discount {
     public Discount() {
         this.discountID = 0;
         this.discountName = "";
-        this.discountType = "";
-        this.discountValue = 0f;
         this.description = "";
         this.startDate = null;
         this.endDate = null;
@@ -33,11 +30,9 @@ public class Discount {
 
     }
 
-    public Discount(int discountID, String discountName, String discountType, Float discountValue, String description, Date startDate, Date endDate, String image) {
+    public Discount(int discountID, String discountName, String description, Date startDate, Date endDate, String image) {
         this.discountID = discountID;
         this.discountName = discountName;
-        this.discountType = discountType;
-        this.discountValue = discountValue;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -52,13 +47,6 @@ public class Discount {
         this.discountName = discountName;
     }
 
-    public void setDiscountType(String discountType) {
-        this.discountType = discountType;
-    }
-
-    public void setDiscountValue(Float discountValue) {
-        this.discountValue = discountValue;
-    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -84,13 +72,6 @@ public class Discount {
         return discountName;
     }
 
-    public String getDiscountType() {
-        return discountType;
-    }
-
-    public Float getDiscountValue() {
-        return discountValue;
-    }
 
     public String getDescription() {
         return description;

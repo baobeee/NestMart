@@ -23,15 +23,22 @@
 
         <title>NestMart - Categories</title>
 
-        <link href="admin/static/css/app.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/admin/css/app.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
         <style>
-            .search-container {
+             .search-container {
                 display: flex;
                 align-items: center;
                 margin-bottom: 20px;
                 width: 100%;
             }
+
+            .search-form {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+
             .search-input {
                 flex: 1;
                 height: 45px;
@@ -41,6 +48,7 @@
                 border-right: none;
                 font-size: 16px;
             }
+
             .search-button {
                 height: 45px;
                 width: 65px;
@@ -55,9 +63,11 @@
                 cursor: pointer;
                 margin-right: 15px;
             }
+
             .search-button i {
                 font-size: 20px;
             }
+
             .search-button:hover {
                 background-color: #e0e0e0;
             }
@@ -128,6 +138,63 @@
             .table td {
                 vertical-align: middle; /* Center-align text vertically in table cells */
             }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+            }
+
+            .pagination .page-item .page-link {
+                color: #282c3c;
+                background-color: #fff;
+                border: 1px solid #282c3c;
+                padding: 8px 16px;
+                margin: 0 4px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+            }
+
+            .pagination .page-item.active .page-link {
+                color: #fff;
+                background-color: #282c3c;
+                border-color: #282c3c;
+            }
+
+            .pagination .page-item .page-link:hover {
+                color: #fff;
+                background-color: #282c3c;
+                border-color: #282c3c;
+            }
+
+            .pagination .page-item.disabled .page-link {
+                color: #6c757d;
+                background-color: #fff;
+                border-color: #dee2e6;
+                cursor: not-allowed;
+            }
+            .table-actions {
+        white-space: nowrap;
+    }
+    .table-actions > * {
+        margin-right: 5px;
+    }
+    .btn-update {
+        color: #ffc107;
+    }
+    .btn-delete {
+        color: #dc3545;
+    }
+    .badge {
+        padding: 0.5em 0.75em;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .badge i {
+        width: 16px;
+        height: 16px;
+    }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Spring Web MVC project</title>
@@ -146,109 +213,85 @@
                             Pages
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="index.htm">
-                                <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                            </a>
-                        </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="accounts.htm" >
-                                <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">User Accounts</span>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="account.htm" >
+                        <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
-                            </a>
-                        </li>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="product.htm">
-                                <i class="align-middle" data-feather="box"></i> <span class="align-middle">Products</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="products.htm">
+                        <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item active">
-                            <a class="sidebar-link" href="brand.htm">
-                                <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brands</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="brand.htm">
+                        <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item  ">
-                            <a class="sidebar-link" href="category.htm">
-                                <i class="align-middle" data-feather="list"></i> <span class="align-middle">Categories</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item  ">
+                    <a class="sidebar-link" href="categories.htm">
+                        <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="categoryDetail.htm">
-                                <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Details</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="categoryDetail.htm">
+                        <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="discount.htm">
-                                <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="discount.htm">
+                        <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="offers.htm">
-                                <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="offers.htm">
+                        <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="schedule.htm">
-                                <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="schedule.htm">
+                        <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="order.htm">
-                                <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                            </a>
-                        </li>
+                
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="inventory.htm">
-                                <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="inventory.htm">
+                        <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="feedback.htm">
+        <li class="sidebar-item">
+                            <a class="sidebar-link" href="viewFeedbackAd.htm">
                                 <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="finacialTransactions.htm">
-                                <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="salary.htm">
+                        <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="salary.htm">
-                                <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
-                            </a>
-                        </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="notifications.htm">
+                        <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
+                    </a>
+                </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="notifications.htm">
-                                <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
-                            </a>
-                        </li>
+
                     </ul>
 
-                    <div class="sidebar-cta">
-                        <div class="sidebar-cta-content">
-                            <strong class="d-inline-block mb-2">Upgrade to Pro</strong>
-                            <div class="mb-3 text-sm">
-                                Are you looking for more components? Check out our premium version.
-                            </div>
-                            <div class="d-grid">
-                                <a href="upgrade-to-pro.html" class="btn btn-primary">Upgrade to Pro</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </nav>
 
@@ -417,59 +460,113 @@
                 <main class="content">
                     <div class="container mt-4">
                         <!-- Search and Buttons -->
-                        <div class="search-container">
-                            <input type="text" class="form-control search-input" placeholder="Search...">
-                            <button class="btn search-button">
-                                <i class="align-middle" data-feather="search"></i>
-                            </button>
-                            <!-- Icon buttons for Export and Add -->
-                            <div class="icon-container">
-                                <button class="btn btn-export">
-                                    <i data-feather="file-text"></i>
-                                </button>
-                                <!-- Update the Add button -->
-                                <button class="btn btn-add" onclick="window.location.href = '${pageContext.request.contextPath}/brandCreate.htm'">
-                                    <i data-feather="plus"></i>
-                                </button>
+                        <!-- Search and Buttons -->
+<div class="search-container">
+    <form action="brand.htm" method="get" class="search-form">
+        <!-- Input for search criteria -->
+        <input type="text" name="keyword" class="form-control search-input" placeholder="Search by name or ID..." value="${keyword}">
+        <button type="submit" class="btn search-button">
+            <i class="align-middle" data-feather="search"></i>
+        </button>
+    </form>
 
-                            </div>
+    <!-- Icon buttons for Export and Add -->
+    <div class="icon-container">
+        <!-- Export button -->
+        <button class="btn btn-export">
+            <i data-feather="file-text"></i>
+        </button>
+        <!-- Add button -->
+        <button class="btn btn-add" onclick="window.location.href = 'brandCreate.htm'">
+            <i data-feather="plus"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Suggestion for typo-tolerant search -->
+<c:set var="suggestion" value="${closestMatch != null && !closestMatch.equalsIgnoreCase(keyword) ? closestMatch : null}" />
+
+<!-- Display suggestion if it exists -->
+<c:if test="${not empty suggestion}">
+    <p>Có phải ý bạn là <a href="brand.htm?keyword=${suggestion}">${suggestion}</a> không?</p>
+</c:if>
+
+<!-- Display message if no suggestion and keyword is not empty and no search results -->
+<c:if test="${empty listBrands && not empty keyword && empty suggestion}">
+    <p>Không có kết quả phù hợp cho từ khóa "${keyword}".</p>
+</c:if>
+
+
+<table class="table table-hover my-0" id="accountTable">
+    <thead>
+        <tr>
+            <th>Brand ID</th>
+            <th>Brand Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="brand" items="${listBrands}">
+            <tr>
+                <td><c:out value="${brand.brandID}" /></td>
+                <td><c:out value="${brand.brandName}" /></td>
+                <td><c:out value="${brand.description}" /></td>
+                <td class="table-actions">
+                    <!-- Nút Edit luôn hiển thị -->
+                    <a href="brandUpdate.htm?brandID=${brand.brandID}" class="btn btn-update" title="Edit">
+                        <i data-feather="edit"></i>
+                    </a>
+                    
+                    <!-- Kiểm tra và hiển thị nút xóa hoặc "Brand in use" -->
+                    <c:choose>
+                        <c:when test="${brand.hasProducts}">
+                            <span class="badge bg-warning text-dark" title="This brand has associated products">
+                                <i data-feather="alert-circle"></i>
+                                Brand in use
+                            </span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="brandDelete.htm?brandID=${brand.brandID}" 
+                               class="btn btn-delete" 
+                               title="Delete" 
+                               onclick="return confirm('Are you sure you want to delete this brand?');">
+                                <i data-feather="trash-2"></i>
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>
+        </c:forEach>
+        <c:if test="${empty listBrands}">
+            <tr>
+                <td colspan="4">No brands found.</td>
+            </tr>
+        </c:if>
+    </tbody>
+</table>
+                        <div class="pagination-container">
+
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                        <a class="page-link" href="?page=${currentPage - 1}&pageSize=${pageSize}" tabindex="-1">Previous</a>
+                                    </li>
+
+                                    <c:forEach begin="1" end="${totalPages}" var="i">
+                                        <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                            <a class="page-link" href="?page=${i}&pageSize=${pageSize}">${i}</a>
+                                        </li>
+                                    </c:forEach>
+
+                                    <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                        <a class="page-link" href="?page=${currentPage + 1}&pageSize=${pageSize}">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
-                        <table class="table table-hover my-0" id="accountTable">
-                            <thead>
-                                <tr>
-                                    <th>Brand ID</th>
-                                    <th>Brand Name</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="brand" items="${listBrands}">
-                                    <tr>
-                                        <td><c:out value="${brand.brandID}" /></td>
-                                        <td><c:out value="${brand.brandName}" /></td>
-                                        <td><c:out value="${brand.description}" /></td>
-                                        <td class="table-actions">
-                                            <a href="${pageContext.request.contextPath}/brandUpdate.htm?brandID=${brand.brandID}" class="btn btn-update" title="Edit">
-                                                <i data-feather="edit"></i>
-                                            </a>
-                                            <a href="${pageContext.request.contextPath}/brandDelete.htm?brandID=${brand.brandID}" class="btn btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this category?');">
-                                                <i data-feather="trash-2"></i>
-                                            </a>
-                                        </td>
 
 
-
-
-
-                                    </tr>
-                                </c:forEach>
-                                <c:if test="${empty listBrands}">
-                                    <tr>
-                                        <td colspan="3">No categories found.</td>
-                                    </tr>
-                                </c:if>
-                            </tbody>
-                        </table>
                     </div>
                 </main>
                 <footer class="footer">
@@ -502,7 +599,11 @@
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script> <!-- Feather Icons JS -->
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        feather.replace();
+    });
+</script>
         <script src="admin/static/js/app.js"></script>
     </body>
 </html>

@@ -22,31 +22,25 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         System.out.println("JdbcTemplate initialized: " + (this.jdbcTemplate != null));
     }
-
-    @Override
-    public List<Categories> findAll() {
-        try {
-            jdbcTemplate.queryForObject("SELECT 1", Integer.class);
-            System.out.println("Database connection successful.");
-        } catch (Exception e) {
-            System.out.println("Database connection failed: " + e.getMessage());
+@Override
+public List<Categories> findAll() {
+    String query = "SELECT c.CategoryID, c.CategoryName, c.Description, " +
+                   "CASE WHEN EXISTS (SELECT 1 FROM Products p WHERE p.CategoryID = c.CategoryID) " +
+                   "THEN 1 ELSE 0 END as HasProducts " +
+                   "FROM Categories c";
+    return jdbcTemplate.query(query, new RowMapper<Categories>() {
+        @Override
+        public Categories mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Categories category = new Categories(
+                rs.getInt("CategoryID"),
+                rs.getString("CategoryName"),
+                rs.getString("Description")
+            );
+            category.setHasProducts(rs.getInt("HasProducts") == 1);
+            return category;
         }
-
-        String query = "SELECT CategoryID, CategoryName, Description FROM Categories";
-        List<Categories> categoryList = new ArrayList<>();
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(query);
-
-        System.out.println("Rows returned: " + rows.size()); // Kiểm tra số lượng bản ghi
-
-        for (Map row : rows) {
-            Categories c = new Categories((int) row.get("CategoryID"),
-                    (String) row.get("CategoryName"),
-                    (String) row.get("Description"));
-            categoryList.add(c);
-        }
-        System.out.println(categoryList); // In danh sách danh mục
-        return categoryList;
-    }
+    });
+}
 
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
@@ -70,18 +64,24 @@ public class CategoriesDAOImpl implements CategoriesDAO {
         System.out.println("Rows affected: " + rowsAffected);
     }
 
-    @Override
-    public void deleteById(int id) {
-        // First, delete all products associated with the Category
-        String deleteProductsQuery = "DELETE FROM Products WHERE CategoryID = ?";
-        int productsDeleted = jdbcTemplate.update(deleteProductsQuery, id);
-        System.out.println("Products deleted: " + productsDeleted);
-
-        // Then, delete the category itself
-        String deleteCategoryQuery = "DELETE FROM Categories WHERE CategoryID = ?";
-        int categoryDeleted = jdbcTemplate.update(deleteCategoryQuery, id);
-        System.out.println("Category deleted: " + categoryDeleted);
+   @Override
+public void deleteById(int id) {
+    // Kiểm tra xem category có sản phẩm liên kết không
+    String checkProductsQuery = "SELECT COUNT(*) FROM Products WHERE CategoryID = ?";
+    int productCount = jdbcTemplate.queryForObject(checkProductsQuery, Integer.class, id);
+    
+    if (productCount > 0) {
+        throw new IllegalStateException("Cannot delete category with ID " + id + " because it has associated products");
     }
+    
+    // Nếu không có sản phẩm liên kết, tiến hành xóa category
+    String deleteCategoryQuery = "DELETE FROM Categories WHERE CategoryID = ?";
+    int categoryDeleted = jdbcTemplate.update(deleteCategoryQuery, id);
+    
+    if (categoryDeleted == 0) {
+        throw new IllegalStateException("Category with ID " + id + " not found");
+    }
+}
 
     @Override
     public Categories findById(int id) {
@@ -110,7 +110,6 @@ public class CategoriesDAOImpl implements CategoriesDAO {
             return Collections.emptyMap();
         }
 
-        // Tạo chuỗi placeholders cho câu truy vấn SQL
         String placeholders = String.join(",", Collections.nCopies(categoryIds.size(), "?"));
         String query = "SELECT CategoryID, CategoryName FROM Categories WHERE CategoryID IN (" + placeholders + ")";
 
@@ -121,5 +120,102 @@ public class CategoriesDAOImpl implements CategoriesDAO {
             }
             return categoryNames;
         });
+    }
+
+  @Override
+public List<Categories> findPaginated(int page, int pageSize) {
+    String query = "SELECT c.CategoryID, c.CategoryName, c.Description, " +
+                   "CASE WHEN EXISTS (SELECT 1 FROM Products p WHERE p.CategoryID = c.CategoryID) " +
+                   "THEN 1 ELSE 0 END as HasProducts " +
+                   "FROM Categories c " +
+                   "ORDER BY c.CategoryID " +
+                   "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    
+    int offset = (page - 1) * pageSize;
+    
+    return jdbcTemplate.query(query, new Object[]{offset, pageSize}, new RowMapper<Categories>() {
+        @Override
+        public Categories mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Categories category = new Categories(
+                rs.getInt("CategoryID"),
+                rs.getString("CategoryName"),
+                rs.getString("Description")
+            );
+            category.setHasProducts(rs.getInt("HasProducts") == 1);
+            return category;
+        }
+    });
+}
+ @Override
+   
+public List<Categories> searchByKeyword(String keyword) {
+    System.out.println("Searching for keyword: " + keyword);
+    String query = "SELECT CategoryID, CategoryName, Description FROM Categories WHERE CategoryName LIKE ?";
+    List<Categories> results = jdbcTemplate.query(query, new Object[]{"%" + keyword + "%"}, new RowMapper<Categories>() {
+        @Override
+        public Categories mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Categories(
+                rs.getInt("CategoryID"),
+                rs.getString("CategoryName"),
+                rs.getString("Description")
+            );
+        }
+    });
+    System.out.println("Found " + results.size() + " results.");
+    return results;
+}
+
+
+   @Override
+public String findClosestMatch(String keyword) {
+    System.out.println("Finding closest match for keyword: " + keyword);
+    String query = "SELECT CategoryName FROM Categories";
+    List<String> categoryNames = jdbcTemplate.queryForList(query, String.class);
+
+    String closestMatch = null;
+    int minDistance = Integer.MAX_VALUE;
+
+    for (String categoryName : categoryNames) {
+        int distance = levenshteinDistance(keyword, categoryName);
+        System.out.println("Comparing with: " + categoryName + " - Distance: " + distance);
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestMatch = categoryName;
+        }
+    }
+
+    System.out.println("Closest match found: " + closestMatch);
+    return closestMatch;
+}
+
+
+    @Override
+public int levenshteinDistance(String a, String b) {
+    if (a == null || b == null) {
+        throw new IllegalArgumentException("Strings must not be null");
+    }
+    int[][] dp = new int[a.length() + 1][b.length() + 1];
+
+    for (int i = 0; i <= a.length(); i++) {
+        for (int j = 0; j <= b.length(); j++) {
+            if (i == 0) {
+                dp[i][j] = j;
+            } else if (j == 0) {
+                dp[i][j] = i;
+            } else {
+                dp[i][j] = Math.min(dp[i - 1][j - 1] + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1),
+                                    Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
+            }
+        }
+    }
+    System.out.println("Levenshtein distance between '" + a + "' and '" + b + "' is: " + dp[a.length()][b.length()]);
+    return dp[a.length()][b.length()];
+}
+
+
+    @Override
+    public int getTotalCategories() {
+        String query = "SELECT COUNT(*) FROM Categories";
+        return jdbcTemplate.queryForObject(query, Integer.class);
     }
 }

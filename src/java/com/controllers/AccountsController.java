@@ -2,7 +2,10 @@ package com.controllers;
 
 import com.models.Accounts;
 import com.models.AccountsDAO;
+//import com.services.AccountService;
 import com.services.SessionService;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,15 +14,23 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,23 +40,56 @@ public class AccountsController {
     private AccountsDAO accountsDAO;
 
     @Autowired
-    private SessionService sessionService;
-
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "account", method = RequestMethod.GET)
     public String showAccounts(HttpServletRequest request, ModelMap model) {
+        // Kiểm tra phiên làm việc
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("email") == null) {
             return "redirect:/login.htm";
         }
 
-        List<Accounts> listAccount = accountsDAO.findAll();
+        // Lấy tham số từ khóa tìm kiếm
+        String keyword = request.getParameter("keyword");
+
+        // Lấy tham số trang, mặc định là 1 nếu không có tham số trang
+        int page = (request.getParameter("page") != null) ? Integer.parseInt(request.getParameter("page")) : 1;
+
+        // Đảm bảo page không nhỏ hơn 1
+        if (page < 1) {
+            page = 1;
+        }
+
+        // Xác định số lượng bản ghi mỗi trang
+        int pageSize = 10; // Số lượng bản ghi mỗi trang
+
+        // Nếu keyword null hoặc rỗng, lấy số lượng tài khoản tổng
+        if (keyword == null || keyword.trim().isEmpty()) {
+            keyword = ""; // Đặt keyword thành chuỗi rỗng để tìm tất cả
+        }
+
+        // Tính tổng số bản ghi
+        int totalRecords = accountsDAO.getTotalAccounts(keyword);
+        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+
+        // Nếu không có tài khoản nào, thiết lập trang về 1 và tổng số trang là 1
+        if (totalRecords == 0) {
+            page = 1;
+            totalPages = 1; // Để đảm bảo không có phân trang khi không có tài khoản
+        }
+
+        // Lấy danh sách tài khoản với phân trang và tìm kiếm
+        List<Accounts> listAccount = accountsDAO.getPagedAccounts(keyword, page, pageSize);
         listAccount.forEach(account -> account.setRoleName(getRoleName(account.getRole())));
 
+        // Thêm các thuộc tính vào model
         model.addAttribute("listAccount", listAccount);
-        return "/admin/account";
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("keyword", keyword); // Tránh null
+
+        return "/admin/account"; // Trả về trang hiển thị tài khoản
     }
 
     @RequestMapping(value = "/accountCreate", method = RequestMethod.GET)
@@ -54,7 +98,7 @@ public class AccountsController {
         return "/admin/accountCreate";
     }
 
-    @RequestMapping(value = "/admin/accountCreate.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "/accountCreate.htm", method = RequestMethod.POST)
     public String createAccount(
             @RequestParam("fullName") @NotBlank String fullName,
             @RequestParam("email") @NotBlank String email,
@@ -134,7 +178,13 @@ public class AccountsController {
     }
 
     @RequestMapping(value = "/editAccount.htm", method = RequestMethod.POST)
-    public String updateAccount(@RequestParam("accountID") int id, @ModelAttribute("account") Accounts account, BindingResult result, Model model) {
+    public String updateAccount(
+            @RequestParam("accountID") int id,
+            @RequestParam("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday,
+            @ModelAttribute("account") Accounts account,
+            BindingResult result,
+            Model model) {
+
         Accounts existingAccount = accountsDAO.findById(id);
 
         if (existingAccount == null) {
@@ -142,16 +192,11 @@ public class AccountsController {
             return "/admin/accountUpdate";
         }
 
-        if (accountsDAO.existsByEmail(account.getEmail()) && !existingAccount.getEmail().equals(account.getEmail())) {
-            result.rejectValue("email", "error.account", "Email already exists.");
-        }
-
-        if (!account.getEmail().matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
-            result.rejectValue("email", "error.account", "Email is not in correct format.");
-        }
-
-        if (accountsDAO.existsByPhoneNumber(account.getPhoneNumber()) && !existingAccount.getPhoneNumber().equals(account.getPhoneNumber())) {
-            result.rejectValue("phoneNumber", "error.account", "Phone Number already exists.");
+        // Validation for birthday
+        LocalDate today = LocalDate.now();
+        int age = Period.between(birthday, today).getYears();
+        if (age < 14) {
+            result.rejectValue("birthday", "error.account", "User must be at least 14 years old.");
         }
 
         if (result.hasErrors()) {
@@ -159,53 +204,79 @@ public class AccountsController {
             return "/admin/accountUpdate";
         }
 
+        existingAccount.setFullName(account.getFullName());
+        existingAccount.setBirthday(java.sql.Date.valueOf(birthday));// đổi kiểu
+
+        // Other fields update
         existingAccount.setEmail(account.getEmail());
         existingAccount.setGender(account.getGender());
         existingAccount.setRole(account.getRole());
         existingAccount.setPhoneNumber(account.getPhoneNumber());
+        existingAccount.setHourlyRate(account.getHourlyRate());
 
         accountsDAO.update(existingAccount);
         return "redirect:/admin/account.htm";
     }
 
-    @RequestMapping(value = "accountDelete", method = RequestMethod.GET)
-    public String deleteAccount(@RequestParam("accountID") int id, Model model) {
-        try {
-//            // Kiểm tra nếu tài khoản có liên kết với các bảng khác
-//            boolean hasDependencies = accountsDAO.hasDependencies(id);
-//            
-//            if (hasDependencies) {
-//                model.addAttribute("errorMessage", "Cannot delete account because it has dependencies in other tables.");
-//                return "/admin/account";  // Trả về trang lỗi hoặc thông báo lỗi nếu có liên kết
+//    @RequestMapping(value = "/export", method = RequestMethod.POST)
+//    public ResponseEntity<byte[]> exportAccountsToDoc() {
+//        List<Accounts> listAccount = accountsDAO.findAll(); // Lấy tất cả tài khoản
+//
+//        // Khởi tạo tài liệu và ByteArrayOutputStream
+//        XWPFDocument document = new XWPFDocument();
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//
+//        try {
+//            // Tạo tiêu đề cho file DOC
+//            XWPFParagraph title = document.createParagraph();
+//            XWPFRun runTitle = title.createRun();
+//            runTitle.setText("Account Information");
+//            runTitle.setBold(true);
+//            runTitle.setFontSize(20);
+//            title.setAlignment(ParagraphAlignment.CENTER);
+//
+//            // Thêm tiêu đề cho các cột
+//            XWPFParagraph header = document.createParagraph();
+//            XWPFRun runHeader = header.createRun();
+//            runHeader.setText("Account ID, Full Name, Phone Number, Email, Role, Gender, Birthday, Address, Hourly Rate");
+//            runHeader.addBreak();
+//
+//            // Thêm dữ liệu tài khoản vào file
+//            for (Accounts account : listAccount) {
+//                XWPFRun runData = document.createParagraph().createRun();
+//                runData.setText(String.format("%d, %s, %s, %s, %s, %s, %s, %s, %s",
+//                        account.getAccountID(),
+//                        account.getFullName(),
+//                        account.getPhoneNumber(),
+//                        account.getEmail(),
+//                        getRoleName(account.getRole()),
+//                        account.getGender(),
+//                        account.getBirthday().toString(), // Chuyển đổi LocalDate thành String
+//                        account.getAddress(),
+//                        account.getHourlyRate()));
+//                runData.addBreak();
 //            }
-
-            // Xóa tài khoản nếu không có liên kết
-            accountsDAO.deleteById(id);
-            return "redirect:/admin/account.htm";
-        } catch (Exception e) {
-            model.addAttribute("errorMessage", "An error occurred while deleting the account: " + e.getMessage());
-            return "redirect:/admin/account";  // Trả về trang lỗi nếu có lỗi xảy ra
-        }
-    }
-
-    @GetMapping("/information")
-    public String showAccountInformation(HttpSession session, Model model) {
-        String email = (String) session.getAttribute("email");
-        if (email == null) {
-            model.addAttribute("error", "You must be logged in to view account information.");
-            return "redirect:/login.htm";
-        }
-
-        Accounts account = accountsDAO.findByEmail(email);
-        if (account == null) {
-            model.addAttribute("error", "Account not found.");
-            return "redirect:/login.htm";
-        }
-
-        model.addAttribute("account", account);
-        return "/admin/accountInformation";
-    }
-
+//
+//            // Ghi tài liệu vào byte array
+//            document.write(out);
+//
+//            // Đặt tiêu đề cho response
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.add("Content-Disposition", "attachment; filename=accounts.doc");
+//
+//            return new ResponseEntity<>(out.toByteArray(), headers, HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace(); // Xử lý lỗi
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//        } finally {
+//            // Đóng ByteArrayOutputStream
+//            try {
+//                out.close(); // Đóng ByteArrayOutputStream
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
     private String getRoleName(int role) {
         switch (role) {
             case 1:

@@ -2,61 +2,33 @@ package com.models;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Salary {
-
     private int salaryID;
-    private int accountID;
-    private String employeeName;
+    private int accountID; 
     private Date salaryPaymentDate;
     private BigDecimal totalHours;
     private BigDecimal hourlyRate;
     private BigDecimal totalSalary;
-    private Date weekStartDate;
-    private Date weekEndDate;
-
-    // Thông tin chi tiết từ WeekDetails
-    private BigDecimal overtimeHours;
-    private String status;
-    private String notes;
-    private String dayOfWeek;
-    private String shiftName;
-    private Time shiftStartTime;
-    private Time shiftEndTime;
-    private BigDecimal dailySalary;
+    private int weekScheduleID;
+    private int shiftID;
 
     // Constructors
     public Salary() {
     }
 
-    public Salary(int salaryID, int accountID, String employeeName, Date salaryPaymentDate,
-            BigDecimal totalHours, BigDecimal hourlyRate, BigDecimal totalSalary,
-            Date weekStartDate, Date weekEndDate, BigDecimal overtimeHours, String status,
-            String notes, String dayOfWeek, String shiftName, Time shiftStartTime,
-            Time shiftEndTime, BigDecimal dailySalary) {
+    public Salary(int salaryID, int accountID, Date salaryPaymentDate, BigDecimal totalHours, BigDecimal hourlyRate, BigDecimal totalSalary, int weekScheduleID, int shiftID) {
         this.salaryID = salaryID;
-        this.accountID = accountID;
-        this.employeeName = employeeName;
+        this.accountID = accountID; 
         this.salaryPaymentDate = salaryPaymentDate;
         this.totalHours = totalHours;
         this.hourlyRate = hourlyRate;
         this.totalSalary = totalSalary;
-        this.weekStartDate = weekStartDate;
-        this.weekEndDate = weekEndDate;
-        this.overtimeHours = overtimeHours;
-        this.status = status;
-        this.notes = notes;
-        this.dayOfWeek = dayOfWeek;
-        this.shiftName = shiftName;
-        this.shiftStartTime = shiftStartTime;
-        this.shiftEndTime = shiftEndTime;
-        this.dailySalary = dailySalary;
+        this.weekScheduleID = weekScheduleID;
+        this.shiftID = shiftID;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public int getSalaryID() {
         return salaryID;
     }
@@ -65,12 +37,12 @@ public class Salary {
         this.salaryID = salaryID;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public int getAccountID() {
+        return accountID; 
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID; 
     }
 
     public Date getSalaryPaymentDate() {
@@ -95,6 +67,7 @@ public class Salary {
 
     public void setHourlyRate(BigDecimal hourlyRate) {
         this.hourlyRate = hourlyRate;
+        calculateTotalSalary(); // Tính lại tổng lương khi thay đổi hourlyRate
     }
 
     public BigDecimal getTotalSalary() {
@@ -105,94 +78,40 @@ public class Salary {
         this.totalSalary = totalSalary;
     }
 
-    public Date getWeekStartDate() {
-        return weekStartDate;
+    public int getWeekScheduleID() {
+        return weekScheduleID;
     }
 
-    public void setWeekStartDate(Date weekStartDate) {
-        this.weekStartDate = weekStartDate;
+    public void setWeekScheduleID(int weekScheduleID) {
+        this.weekScheduleID = weekScheduleID;
     }
 
-    public Date getWeekEndDate() {
-        return weekEndDate;
+    public int getShiftID() {
+        return shiftID;
     }
 
-    public void setWeekEndDate(Date weekEndDate) {
-        this.weekEndDate = weekEndDate;
+    public void setShiftID(int shiftID) {
+        this.shiftID = shiftID;
     }
 
-    // New getters and setters
-    public BigDecimal getOvertimeHours() {
-        return overtimeHours;
+    // Phương thức tính toán tổng lương dựa trên giờ làm và mức lương theo giờ
+    private void calculateTotalSalary() {
+        if (totalHours != null && hourlyRate != null) {
+            this.totalSalary = totalHours.multiply(hourlyRate);
+        }
     }
 
-    public void setOvertimeHours(BigDecimal overtimeHours) {
-        this.overtimeHours = overtimeHours;
+    @Override
+    public String toString() {
+        return "Salary{" +
+                "salaryID=" + salaryID +
+                ", accountID=" + accountID + 
+                ", salaryPaymentDate=" + salaryPaymentDate +
+                ", totalHours=" + totalHours +
+                ", hourlyRate=" + hourlyRate +
+                ", totalSalary=" + totalSalary +
+                ", weekScheduleID=" + weekScheduleID +
+                ", shiftID=" + shiftID +
+                '}';
     }
-
-
-    public String getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public String getShiftName() {
-        return shiftName;
-    }
-
-    public void setShiftName(String shiftName) {
-        this.shiftName = shiftName;
-    }
-
-    public Time getShiftStartTime() {
-        return shiftStartTime;
-    }
-
-    public void setShiftStartTime(Time shiftStartTime) {
-        this.shiftStartTime = shiftStartTime;
-    }
-
-    public Time getShiftEndTime() {
-        return shiftEndTime;
-    }
-
-    public void setShiftEndTime(Time shiftEndTime) {
-        this.shiftEndTime = shiftEndTime;
-    }
-
-    public int getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public BigDecimal getDailySalary() {
-        return dailySalary;
-    }
-
-    public void setDailySalary(BigDecimal dailySalary) {
-        this.dailySalary = dailySalary;
-    }
-
 }

@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.models;
 
 import java.util.Date;
 
-/**
- *
- * @author Acer
- */
 public class Offers {
 
     private int offerID;
@@ -17,10 +9,10 @@ public class Offers {
     private int discountID;
     private String offerName;
     private String description;
-    private Date startDate;
-    private Date endDate;
     private String productName;
     private String discountName;
+    private String discountType; 
+    private int discountValue;    
 
     public Offers() {
         this.offerID = 0;
@@ -28,24 +20,41 @@ public class Offers {
         this.discountID = 0;
         this.offerName = "";
         this.description = "";
-        this.startDate = null;
-        this.endDate = null;
         this.productName = "";
         this.discountName = "";
+        this.discountType = ""; 
+        this.discountValue = 0;  
     }
 
-    public Offers(int offerID, String productID, int discountID, String offerName, String description, Date startDate, Date endDate, String productName, String discountName) {
+    public Offers(int offerID, String productID, int discountID, String offerName, String description, String productName, String discountName, String discountType, int discountValue) {
         this.offerID = offerID;
         this.productID = productID;
         this.discountID = discountID;
         this.offerName = offerName;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.productName = productName;
         this.discountName = discountName;
+        this.discountType = discountType;   
+        this.discountValue = discountValue; 
     }
 
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
+    }
+
+    public int getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(int discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    // Các getter và setter khác
     public int getOfferID() {
         return offerID;
     }
@@ -86,22 +95,6 @@ public class Offers {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -117,5 +110,4 @@ public class Offers {
     public void setDiscountName(String discountName) {
         this.discountName = discountName;
     }
-
 }

@@ -4,6 +4,7 @@ public class Categories {
     private int categoryID;
     private String categoryName;
     private String description;
+    private boolean hasProducts;
 
     public Categories() {
         this.categoryID = 0;
@@ -39,6 +40,14 @@ public class Categories {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isHasProducts() {
+        return hasProducts;
+    }
+
+    public void setHasProducts(boolean hasProducts) {
+        this.hasProducts = hasProducts;
     }
     
 }

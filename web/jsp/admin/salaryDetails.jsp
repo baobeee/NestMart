@@ -22,10 +22,12 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
 
-        <title>NestMart - Accounts</title>
+        <title>NestMart - Salary Details</title>
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/admin/css/app.css" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
         <style>
             .search-container {
                 display: flex;
@@ -66,7 +68,6 @@
                 display: flex;
                 align-items: center;
                 gap: 10px;
-                margin-left: auto; /* Đẩy các nút về bên phải */
             }
             .icon-container .btn {
                 background-color: #f1f1f1;
@@ -81,6 +82,7 @@
                 cursor: pointer;
                 font-size: 24px;
                 transition: background-color 0.3s, box-shadow 0.3s;
+                margin-top: -22px;
             }
             .icon-container .btn:hover {
                 background-color: #e0e0e0;
@@ -92,12 +94,6 @@
                 justify-content: center;
                 align-items: center;
                 gap: 5px;
-            }
-            .table-actions {
-                display: flex;
-                gap: 5px;
-                justify-content: center;
-                align-items: center;
             }
             .table-actions .btn {
                 background-color: transparent;
@@ -131,7 +127,6 @@
             }
         </style>
     </head>
-
     <body>
         <c:if test="${param.sessionExpired}">
             <div style="color: red;">
@@ -148,97 +143,79 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index.html">
-                        <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item active">
-                    <a class="sidebar-link" href="showaccount.htm" >
+                    <a class="sidebar-link" href="account.htm" >
                         <i class="align-middle me-2" data-feather="users"></i> <span class="align-middle">Account</span>
 
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-in.html">
+                    <a class="sidebar-link" href="products.htm">
                         <i class="align-middle" data-feather="box"></i> <span class="align-middle">Product</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-up.html">
+                    <a class="sidebar-link" href="brand.htm">
                         <i class="align-middle" data-feather="bold"></i> <span class="align-middle">Brand</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item  ">
-                    <a class="sidebar-link" href="pages-blank.html">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="categories.htm">
                         <i class="align-middle" data-feather="list"></i> <span class="align-middle">Category</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-buttons.html">
+                    <a class="sidebar-link" href="categoryDetail.htm">
                         <i class="align-middle" data-feather="clipboard"></i> <span class="align-middle">Category Detail</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
+                <li class="sidebar-item ">
+                    <a class="sidebar-link" href="discount.htm">
                         <i class="align-middle" data-feather="check-circle"></i> <span class="align-middle">Discount</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-cards.html">
+                    <a class="sidebar-link" href="offers.htm">
                         <i class="align-middle" data-feather="percent"></i> <span class="align-middle">Offers</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="${pageContext.request.contextPath}/admin/workshedule.htm">
+                    <a class="sidebar-link" href="schedule.htm">
                         <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Schedule</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Order</span>
-                    </a>
-                </li>
+
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
+                    <a class="sidebar-link" href="inventory.htm">
                         <i class="align-middle" data-feather="package"></i> <span class="align-middle">Inventory</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
+                    <a class="sidebar-link" href="viewFeedbackAd.htm">
                         <i class="align-middle" data-feather="feather"></i> <span class="align-middle">Feedback</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
-                        <i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Financial Transactions</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
+                <li class="sidebar-item active">
+                    <a class="sidebar-link" href="salary.htm">
                         <i class="align-middle" data-feather="user-check"></i> <span class="align-middle">Salary</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="icons-feather.html">
+                    <a class="sidebar-link" href="notifications.htm">
                         <i class="align-middle" data-feather="navigation"></i> <span class="align-middle">Notification</span>
                     </a>
                 </li>
-
-
             </ul>
 
             <div class="main">
@@ -249,82 +226,64 @@
 
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav navbar-align">
-                            <!-- Các mục khác của navbar... -->
-
                             <li class="nav-item dropdown">
-                                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                                    <i class="align-middle" data-feather="settings"></i>
-                                </a>
-
                                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                    <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="User Avatar" />
                                     <span class="text-dark">${sessionScope.email}</span>
-
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.htm">Logout</a>
-
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="accounts-management.html"><i class="align-middle me-1" data-feather="users"></i> Accounts Management</a>
-                                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="index.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/logout"><i class="align-middle me-1" data-feather="log-out"></i> Log out</a>
-                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/account/accountInformation.htm">
+                                        <i class="fa fa-user"></i> Account Information
+                                    </a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/account/changePassword.htm">
+                                        <i class="fa fa-user"></i> Change Password
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.htm">
+                                        <i class="align-middle me-1" data-feather="log-out"></i> Log out
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </nav>
                 <main class="content">
-                    <div class="container mt-4">
-                        <h2>Weekly Schedule Details</h2>
-                        <div class="schedule-container">
-                            <table class="schedule-table">
-                                <thead>
+                    <div class="container mt-5">
+                        <c:if test="${ not empty weekSchedule}">
+                            <h1 class="mb-4">Salary Details for the Week: <i>${weekSchedule.weekStartDate} to ${weekSchedule.weekEndDate}</i></h1>
+                        </c:if>
+                        <div class="table-hover">
+                            <table class="table table-bordered ">
+                                <thead class="table-light">
                                     <tr>
-                                        <th>Day</th>
-                                        <th>Shifts</th>
-                                        <th>Actions</th>
+                                        <th>Employee ID</th>
+                                        <th>Full Name</th>
+                                        <th>Hourly Rate</th>
+                                        <th>Total Hours</th>
+                                        <th>Total Salary</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="day" items="${scheduleDetails}">
+                                    <c:forEach var="salary" items="${salaryDetails}">
                                         <tr>
-                                            <td>${day.dayName}</td>
-                                            <td>
-                                                <div class="shift-details">
-                                                    <c:forEach var="shift" items="${day.shifts}">
-                                                        <div class="shift">
-                                                            <div class="shift-header">
-                                                                <strong>${shift.shiftName}</strong>
-                                                                <span>(${shift.shiftStartTime} - ${shift.shiftEndTime})</span>
-                                                            </div>
-                                                            <ul>
-                                                                <c:forEach var="employee" items="${shift.employees}">
-                                                                    <li>
-                                                                        ${employee.name} - ${employee.role}
-                                                                        <c:if test="${employee.needsAddition}">
-                                                                            <span class="need-addition">Needs Addition</span>
-                                                                        </c:if>
-                                                                    </li>
-                                                                </c:forEach>
-                                                            </ul>
-                                                        </div>
-                                                    </c:forEach>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="${pageContext.request.contextPath}/addShift.htm?dayID=${day.dayID}" class="btn btn-add">Add Shift</a>
-                                            </td>
+                                            <td>${salary.accountID}</td>
+                                            <td>${salary.fullName}</td>
+                                            <td>${salary.hourlyRate}</td>
+                                            <td>${salary.totalHours}</td>
+                                            <td>${salary.totalSalary}</td>
                                         </tr>
                                     </c:forEach>
-                                    <c:if test="${empty scheduleDetails}">
+                                    <c:if test="${empty salaryDetails}">
                                         <tr>
-                                            <td colspan="3">No schedule details found.</td>
+                                            <td colspan="5" class="text-center">No salary details available for this week.</td>
                                         </tr>
                                     </c:if>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <h2>Total Hours Worked: <span class="text-primary">${totalHours}</span></h2>
+                            <h2>Total Salary for the Week: <span class="text-success">${totalSalary}</span></h2>
+                            <a href="../admin/salary.htm" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
                 </main>
@@ -357,9 +316,13 @@
                 </footer>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.2/feather.min.js"></script>
+        <script src="${pageContext.request.contextPath}/asset/admin/js/app.js"></script>
+        <script>
+            feather.replace();
+        </script>
         <script>
             feather.replace();
         </script>
